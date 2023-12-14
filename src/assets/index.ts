@@ -1,3 +1,3 @@
 import logo from "./logo.png";
-
-export {logo}
+import google from "./google.png"
+export {logo,google}
