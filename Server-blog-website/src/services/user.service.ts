@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import { UserInput, UserModal } from '../Modals/user.modal'
 import { omit } from 'lodash'
+import log from '../utils/logger'
 
 export async function CreateUser(input: UserInput) {
   try {
@@ -18,6 +19,11 @@ export async function ValidatePassword({ email, password }: { email: String; pas
   const user = await UserModal.findOne({ email })
 
   if (!user) return false
+
+  const IsValid = await user.comparePassword(password)
+  console.log(IsValid)
+
+  if (!IsValid) return false
 
   return omit(user.toJSON(), 'password')
 }

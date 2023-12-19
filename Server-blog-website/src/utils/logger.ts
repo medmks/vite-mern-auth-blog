@@ -3,11 +3,10 @@ import dayjs from 'dayjs'
 import pinoPretty from 'pino-pretty'
 
 const log = pino({
-  //   prettifier: pinoPretty(),
+  // prettifier: pinoPretty(),
   base: {
     pid: false,
   },
-  timestamp: () => `, "Time ":" ${dayjs().format()}"`,
+  timestamp: () => `,"time":"${dayjs().format()}"`,
 })
-
 export default log
