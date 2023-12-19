@@ -5,7 +5,7 @@ import { Request ,Response } from "express";
 import { omit } from 'lodash';
 
 
-export async function CreateUserHander(req :Request<{},{},CreateZod_UserInput["body"]>,res:Response){
+export async function CreateUserHandler(req :Request<{},{},CreateZod_UserInput["body"]>,res:Response){
 try{
           const user = await CreateUser(req.body)
           return res.status(200).send(omit(user.toJSON(),"password")) 

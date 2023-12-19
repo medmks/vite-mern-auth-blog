@@ -19,8 +19,9 @@ try{
 export async function ValidatePassword({email,password}:{email:String,password:String}){
 
           const user=await UserModal.findOne({email});
+          
           if(!user) return false;
-
+       
           return omit(user.toJSON(),"password");
 
 }

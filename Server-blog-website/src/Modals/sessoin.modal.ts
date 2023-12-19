@@ -18,5 +18,5 @@ const SessionSchema=new mongoose.Schema({
           userAgent:{type:String}
 },{timestamps:true})
 
-const SesionModal=mongoose.model("Session",SessionSchema)
-export default SesionModal
+const SessionModal=mongoose.model("Session",SessionSchema)
+export default SessionModal
