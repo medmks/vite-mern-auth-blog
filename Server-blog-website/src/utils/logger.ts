@@ -1,13 +1,13 @@
-import pino from "pino";
-import dayjs from "dayjs";
-import pinoPretty from 'pino-pretty';
+import pino from 'pino'
+import dayjs from 'dayjs'
+import pinoPretty from 'pino-pretty'
 
 const log = pino({
-//   prettifier: pinoPretty(),
+  //   prettifier: pinoPretty(),
   base: {
     pid: false,
   },
   timestamp: () => `, "Time ":" ${dayjs().format()}"`,
-});
+})
 
-export default log;
+export default log

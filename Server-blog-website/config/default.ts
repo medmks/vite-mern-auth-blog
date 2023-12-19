@@ -1,8 +1,8 @@
-export default{
-          port:1337,
-          Db_name_Url:"mongodb://127.0.0.1:27017/Blog-Db-Mern",
-          saltworkFactor:10,
-          privateKey:`-----BEGIN RSA PRIVATE KEY-----
+export default {
+  port: 1337,
+  Db_name_Url: 'mongodb://127.0.0.1:27017/Blog-Db-Mern',
+  saltworkFactor: 10,
+  privateKey: `-----BEGIN RSA PRIVATE KEY-----
 MIIG5AIBAAKCAYEAuQqd1kjs6nlB2w67HDuQSSubE1BddX4ph6yuAL9B2ZUM/w4E
 9765zCiqcRJtqoXPKvjIyNI64OuPYLd91+jkvIUc4mALhN9LSoDGlLK9g/ARI2KV
 J0Of3nXwM6vHvz3TNfPnt3meV2TjRh/N61Wpl2f7SjbzHYfGeXKktJzq+k/ShSHu
@@ -41,7 +41,7 @@ eWwxQxIhXzQ5denbbeNvXpYHwztt8NrEiXGNHILZF2mz6lnJBG9z45bA1FnDoArp
 GlUBysuZIv/sMBqoxt5eT+poZl86cyG+ecf1v+AlvvwGPBob/CcZGtbiC7Pixjwg
 MNbclvo5JnkKACVg+v3JV0JggeCk/dxafR6ur4T3dm7JL99XQ8lMPQ==
 -----END RSA PRIVATE KEY-----`,
-          publicKey:`-----BEGIN PUBLIC KEY-----
+  publicKey: `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh66DuadXwhy70QJVSy7N
 l6TVzfthP+xwUY3+AOP5y+aK93IeqCRAlV55tis+RtY7gtSV+c2GZqGhJo3ZLBj8
 ocWI2orT7rOYYzwv69bIH4QpiF6EULMthVntnqmj33VRI9ee5k9ffXNefzVKp3KH
@@ -51,6 +51,6 @@ UoBfolrboeNavGnqhhL6diIKCC0PK7A/l6RDSEwL5YAzvskWOb7Fe01dBQdcyh0O
 nQIDAQAB
 -----END PUBLIC KEY-----`,
 
-          accessTokenTtl:"15m",
-          refreshTokenttl:"1y"
+  accessTokenTtl: '15m',
+  refreshTokenttl: '1y',
 }

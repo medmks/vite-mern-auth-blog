@@ -1,14 +1,14 @@
-import { createSessionHandler,getSessionHandeler } from "../controller/session.controller";
-import Validate from "../Middlewares/validateRessources";
-import { CreateUserZodShema } from "../Schema/user.schema";
-import { CreateUserHandler } from "../controller/user.controller";
-import {CreatesessionSchema} from "../Schema/session.Schema"
+import { createSessionHandler, getSessionHandeler } from '../controller/session.controller'
+import Validate from '../Middlewares/validateRessources'
+import { CreateUserZodShema } from '../Schema/user.schema'
+import { CreateUserHandler } from '../controller/user.controller'
+import { CreatesessionSchema } from '../Schema/session.Schema'
 
-import { Router } from "express";
-import { get } from "config";
+import { Router } from 'express'
+import { get } from 'config'
 
-export default (router:Router) => {
-          router.post("/api/sign-up",Validate(CreateUserZodShema),CreateUserHandler);
-          router.post("/api/session",Validate(CreatesessionSchema),createSessionHandler);
-          router.get("/api/session",getSessionHandeler);
+export default (router: Router) => {
+  router.post('/api/sign-up', Validate(CreateUserZodShema), CreateUserHandler)
+  router.post('/api/session', Validate(CreatesessionSchema), createSessionHandler)
+  router.get('/api/session', getSessionHandeler)
 }
