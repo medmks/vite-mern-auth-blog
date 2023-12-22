@@ -74,7 +74,7 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
 
       console.log(FormData);
 
-      const response: AxiosResponse = await axios.post(import.meta.env.vite`${ServerRoute}`, FormData);
+      const response: AxiosResponse = await axios.post(import.meta.env.Vite_Access_Server`${ServerRoute}`, FormData);
         console.log(FormData);
         toast.success("You have successfully logged in")
 
@@ -94,7 +94,6 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
         console.error('Non-Axios Error:', nonAxiosError.message);
 
         toast.error(nonAxiosError.message.toString())
-
       }
     }
   };
