@@ -17,11 +17,12 @@ return (
 </UserAuthcontext.Provider> 
 )
 }
-const UseUserAuthContext = () => {
+export function UseUserAuthContext(){
           const context = useContext(UserAuthcontext)
-  return (
-    
-  )
+          if(context === undefined ) {
+            throw new Error("UseModalContext should within ModalContext")
+          }
+  return context
 }
 
-export default UseUserAuthContext
+export default UserAuthProvider

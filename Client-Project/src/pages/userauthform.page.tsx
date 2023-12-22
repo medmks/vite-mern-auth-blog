@@ -6,10 +6,6 @@ import { useRef } from "react";
 import axios, {  AxiosResponse } from "axios";
 import toast , { Toaster } from "react-hot-toast";
 
-
-
-
-
 type UserAuthformProp = {
   types: string;
 };
@@ -71,10 +67,8 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
 
 
     try {
-
       console.log(FormData);
-
-      const response: AxiosResponse = await axios.post(import.meta.env.Vite_Access_Server`${ServerRoute}`, FormData);
+      const response: AxiosResponse = await axios.post( import.meta.env.VITE_SERVER_DOMAIN + `${ServerRoute}`, FormData);
         console.log(FormData);
         toast.success("You have successfully logged in")
 
@@ -119,10 +113,6 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
 
       // eslint-disable-next-line prefer-const
       let serverRoute = types === "sign-in" ? "/sign-in" : "/sign-up";
-
-
-     // const { enqueueSnackbar } = useSnackbar();
-
       // eslint-disable-next-line prefer-const
       let form = new FormData(authFormRef.current!);
       // eslint-disable-next-line prefer-const
