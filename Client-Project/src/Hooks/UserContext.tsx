@@ -12,8 +12,7 @@ function UserAuthProvider({ children }: Authcontextproviderprops) {
           const [isAuth,setisAuth]=useState(false)
 return (
 <UserAuthcontext.Provider value={{isAuth,setisAuth}}>
-
-{children}
+        {children}
 </UserAuthcontext.Provider> 
 )
 }

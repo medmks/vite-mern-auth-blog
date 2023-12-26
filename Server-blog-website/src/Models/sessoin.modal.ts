@@ -20,4 +20,4 @@ const SessionSchema = new mongoose.Schema(
 )
 
 const SessionModal = mongoose.model('Session', SessionSchema)
-export default SessionModal
+export default SessionModal;

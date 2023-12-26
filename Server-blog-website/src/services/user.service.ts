@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { UserInput, UserModal } from '../Modals/user.modal'
+import { UserInput, UserModal } from '../Models/user.modal'
 import { omit } from 'lodash'
 import log from '../utils/logger'
 

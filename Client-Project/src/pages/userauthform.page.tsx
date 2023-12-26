@@ -91,22 +91,7 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
       }
     }
   };
-  // const userAuthThoughServer = ({ServerRoute , FormData}:userAuthThoughServerProp) => {
-  //   console.log('====================================');
-  //   console.log(ServerRoute);
-  //   console.log('====================================');
-  
-  //   axios
-  //     .post(import.meta.env.VITE_Access_Server + ServerRoute, FormData)
-  //     .then((response: AxiosResponse) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((error: AxiosError) => {
-  //       console.log('====================================');
-  //       console.log(error.response?.data.error);
-  //       console.log('====================================');
-  //     });
-  // }
+
     const authFormRef = useRef<HTMLFormElement | null>(null)
     const HandeleSubmit = (event: React.MouseEvent) => {
       event.preventDefault();
@@ -174,7 +159,6 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
 
             <button onClick={HandeleSubmit} className="btn-dark w-fit flex ">{types.replace("-"," ")}</button>
          
-
           <div className="relative w-full flex items-center my-5 opacity-10 uppercase text-black gap-2 font-bold ">
             <hr className=" w-1/2 bg-black" />
             <p>or</p>
