@@ -2,8 +2,12 @@ import { Link, Outlet } from "react-router-dom";
 import { logo } from "../assets";
 import { useState } from "react";
 import { UseUserAuthContext } from "../Hooks/UserContext";
+import Usernavigation from "./User-navigating.component";
 const Navbar = () => {
+
   const [ToggleSearch, setToggleSearch] = useState(false);
+  const [UserNavPanel, setUserNavPanel] = useState(false);
+
   const {userAuth } =UseUserAuthContext();
 
   return (
@@ -89,9 +93,13 @@ const Navbar = () => {
         </button>
     </Link>
     <div className="relative">
-      <button className="w-12 h-12 mt-1 rounded-full">
+      <button className="w-12 h-12 mt-1 rounded-full" onClick={()=> setUserNavPanel(prev =>!prev)}>
         <img className="rounded-full object-cover w-full h-full" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.FiqQVZ9jc1WyZpJXcOa1MQHaE8%26pid%3DApi&f=1&ipt=5fb3dd1d2859b98216cd0142070aea48521de3a29b3e2a2f876e2e328cc76d64&ipo=images" alt=""  />
       </button>
+      {
+        UserNavPanel &&       <Usernavigation/>
+
+      }
     </div>
   </>
   :

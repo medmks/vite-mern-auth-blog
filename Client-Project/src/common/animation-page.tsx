@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 type AnimationWrapperProps = {
   children: ReactNode;
-  keyValue: string;
+  keyValue?: string;
   initial?: object;
   animate?: object;
   transition?: object;
