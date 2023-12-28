@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { google } from "../assets";
 import InputBox from "../components/input.component";
 import AnimationWrapper from "../common/animation-page";
 import { useRef } from "react";
 import axios, {  AxiosResponse } from "axios";
 import toast , { Toaster } from "react-hot-toast";
-
+import { storeSesion } from "../common/session";
+import { UseUserAuthContext } from "../Hooks/UserContext";
+import { Navigate } from "react-router-dom";
 type UserAuthformProp = {
   types: string;
 };
@@ -15,6 +17,11 @@ type userAuthThoughServerProp = {
 }
 
 const UserAuthform = ({ types }: UserAuthformProp) => {  
+
+  const {userAuth  ,setuserAuth} = UseUserAuthContext();
+  
+  console.log(userAuth.AccessToken);
+
 
   const UserIcon = (
     <svg
@@ -67,13 +74,15 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
 
 
     try {
-      console.log(FormData);
       const response: AxiosResponse = await axios.post( import.meta.env.VITE_SERVER_DOMAIN + `${ServerRoute}`, FormData);
-        console.log(FormData);
-        toast.success("You have successfully logged in")
-
+      toast.success("You have successfully logged in")
+      
       // Handle the response data
       console.log(response.data);
+      storeSesion({ key: 'user', value: JSON.stringify(response.data) })
+      setuserAuth(response.data)
+
+      
     } catch (error) {
 
         //REVIEW: Handle errors
@@ -116,10 +125,13 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
 })
   };
   return (
+    userAuth.AccessToken ? <Navigate to="/" />
+    : 
     <AnimationWrapper keyValue={types}>
 
       <section className=" h-cover flex w-full items-center justify-center flex-col">
             <Toaster/>
+            
         <form
           ref={authFormRef}
           className=" w-[80%] max-w-[400px] flex flex-col gap-6 justify-center items-center"

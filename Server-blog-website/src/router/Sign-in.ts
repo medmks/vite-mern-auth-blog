@@ -1,4 +1,4 @@
-import { createSessionHandler, getUserSessionHandeler } from '../controller/session.controller'
+import { DeleteSessoinHandeler, createSessionHandler, getUserSessionHandeler } from '../controller/session.controller'
 import Validate from '../Middlewares/validateRessources'
 import { CreateUserZodShema } from '../Schema/user.schema'
 import { CreateUserHandler } from '../controller/user.controller'
@@ -8,6 +8,8 @@ import requireUser from '../Middlewares/requireUser'
 
 export default (router: Router) => {
   router.post('/api/sign-up', Validate(CreateUserZodShema), CreateUserHandler)
-  router.post('/api/session', Validate(CreatesessionSchema), createSessionHandler)
-  router.get('/api/session', requireUser, getUserSessionHandeler)
+  router.post('/api/sign-in', Validate(CreatesessionSchema), createSessionHandler)
+  router.get('/api/session', requireUser, getUserSessionHandeler);
+  router.delete("/api/session",requireUser,DeleteSessoinHandeler)
+
 }

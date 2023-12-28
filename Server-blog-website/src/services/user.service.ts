@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import { UserInput, UserModal } from '../Models/user.modal'
+import mongoose, { FilterQuery } from 'mongoose'
+import { UserDoc, UserInput, UserModal } from '../Models/user.modal'
 import { omit } from 'lodash'
 import log from '../utils/logger'
 
@@ -26,4 +26,8 @@ export async function ValidatePassword({ email, password }: { email: String; pas
   if (!IsValid) return false
 
   return omit(user.toJSON(), 'password')
+}
+
+export async function findUser(query:FilterQuery<UserDoc>){
+return UserModal.findOne(query).lean()
 }

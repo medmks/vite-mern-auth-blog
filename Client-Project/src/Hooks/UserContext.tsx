@@ -1,17 +1,29 @@
-import {useContext,useState ,createContext} from 'react';
+import {useContext,useState ,createContext, useEffect} from 'react';
+import { LookInSession } from '../common/session';
 type Authcontextproviderprops = {
   children: React.ReactNode;
 };
 type AuthContext = {
-          isAuth:boolean,
-          setisAuth:React.Dispatch<React.SetStateAction<boolean>>
+          userAuth:{
+            AccessToken:string | null
+            RefreshToken:string | null
+          },
+          setuserAuth:React.Dispatch<React.SetStateAction<{
+            AccessToken: null;
+            RefreshToken: null;
+        }>>
 } 
 
 const UserAuthcontext = createContext<AuthContext | undefined>(undefined)
-function UserAuthProvider({ children }: Authcontextproviderprops) {
-          const [isAuth,setisAuth]=useState(false)
+function UserAuthProvider({ children }: Authcontextproviderprops) { 
+   const [userAuth,setuserAuth]=useState({AccessToken:null,RefreshToken:null})
+
+  useEffect(()=>{
+    const UserInsession = LookInSession({key :"user"});
+    UserInsession ? setuserAuth( JSON.parse(UserInsession))  : setuserAuth({AccessToken:null,RefreshToken:null})
+  },[])
 return (
-<UserAuthcontext.Provider value={{isAuth,setisAuth}}>
+<UserAuthcontext.Provider value={{userAuth,setuserAuth}}>
         {children}
 </UserAuthcontext.Provider> 
 )

@@ -1,4 +1,4 @@
-import { getUserSessionHandeler } from '../controller/session.controller'
+import { DeleteSessoinHandeler, getUserSessionHandeler } from '../controller/session.controller'
 import requireUser from '../Middlewares/requireUser'
 import express from 'express'
 
@@ -10,6 +10,5 @@ export default (router: express.Router) => {
       return res.status(400).send(error)
     }
   })
-  // router.get('/api/session',  getUserSessionHandeler)
 
 }
