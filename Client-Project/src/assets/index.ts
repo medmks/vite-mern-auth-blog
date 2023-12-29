@@ -1,3 +1,4 @@
 import logo from "./logo.png";
 import google from "./google.png";
-export { logo, google };
+import blogBanner from "./blog banner.png"
+export { logo, google, blogBanner };
