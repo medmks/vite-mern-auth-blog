@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "the server side of mern-web-blog",
   "main": "index.ts",
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "npx prettier --write .",

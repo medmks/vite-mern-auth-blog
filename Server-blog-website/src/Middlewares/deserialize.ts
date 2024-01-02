@@ -5,7 +5,7 @@ import { ReIssueAccessToken } from '../services/session.service';
 
 const deserializeUser = async (req:Request, res:Response, next:NextFunction) => {
   const accessToken = get(req, "headers.authorization", "").replace(/^Bearer\s/, "");
-  const refreshToken = get(req, "headers.x-refresh",'').toLocaleString(); //Todo mak sure it's string
+  const refreshToken = get(req, "headers.x-refresh",'').toLocaleString(); //Todo make sure it's string
 
     
   if (!accessToken) {

@@ -5,11 +5,16 @@ import { CreateUserHandler } from '../controller/user.controller'
 import { CreatesessionSchema } from '../Schema/session.Schema'
 import { Router } from 'express'
 import requireUser from '../Middlewares/requireUser'
+import { CreatePostHandler, FindPostHandler } from '../controller/Post.Controller'
+import { CreatePostSchema, GetPostSchema } from '../Schema/Post.schema'
 
 export default (router: Router) => {
   router.post('/api/sign-up', Validate(CreateUserZodShema), CreateUserHandler)
   router.post('/api/sign-in', Validate(CreatesessionSchema), createSessionHandler)
   router.get('/api/session', requireUser, getUserSessionHandeler);
-  router.delete("/api/session",requireUser,DeleteSessoinHandeler)
+  router.delete("/api/session",requireUser,DeleteSessoinHandeler);
+  router.post("/api/newPost", [requireUser, Validate(CreatePostSchema) ],CreatePostHandler)
+  router.get("/api/posts/:postid", Validate(GetPostSchema) ,FindPostHandler)
+
 
 }
