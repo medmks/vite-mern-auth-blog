@@ -22,7 +22,7 @@ const deserializeUser = async (req:Request, res:Response, next:NextFunction) => 
   }
   if (expired && refreshToken) {
     const newAccessToken = await ReIssueAccessToken({ refreshToken });
-      console.log("NAT" + newAccessToken)
+      console.log(newAccessToken)
     if (newAccessToken) {
       res.setHeader("x-access-token", newAccessToken);
     }
