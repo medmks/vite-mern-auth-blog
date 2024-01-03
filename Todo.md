@@ -12,7 +12,5 @@ on storage.objects for insert
 with check ( bucket_id = 'YOUR-BUCKET-NAME' );
 //TODO: Add the textarea blog Title
 
-
-
-
+t
 //TODO: Setting Google Authentication 

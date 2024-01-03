@@ -1,8 +1,9 @@
-import {useContext,useState ,createContext, useEffect} from 'react';
+import React, {useContext,useState ,createContext, useEffect} from 'react';
 import { LookInSession } from '../common/session';
-type Authcontextproviderprops = {
+type Childernproviderprops = {
   children: React.ReactNode;
 };
+
 type AuthContext = {
           userAuth:{
             AccessToken:string | null
@@ -13,10 +14,16 @@ type AuthContext = {
             RefreshToken: null;
         }>>
 } 
+// DEBUG: This is used for create the context 
 
 const UserAuthcontext = createContext<AuthContext | undefined>(undefined)
-function UserAuthProvider({ children }: Authcontextproviderprops) { 
-   const [userAuth,setuserAuth]=useState({AccessToken:null,RefreshToken:null})
+
+
+// DEBUG: This is used for wraped the childern Jsx element with context values 
+
+function UseAuthProvider({ children }: Childernproviderprops) { 
+
+  const [userAuth,setuserAuth]=useState({AccessToken:null,RefreshToken:null})
 
   useEffect(()=>{
     const UserInsession = LookInSession({key :"user"});
@@ -28,12 +35,18 @@ return (
 </UserAuthcontext.Provider> 
 )
 }
+
+// DEBUG: This is used for dectructing the values of context 
+
 export function UseUserAuthContext(){
           const context = useContext(UserAuthcontext)
           if(context === undefined ) {
-            throw new Error("UseModalContext should within ModalContext")
+            throw new Error("UseAuthContext should within UserAuthcontext")
           }
   return context
 }
 
-export default UserAuthProvider
+
+
+export default UseAuthProvider
+

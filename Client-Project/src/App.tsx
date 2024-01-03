@@ -2,13 +2,18 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar.component";
 import UserAuthform from "./pages/userauthform.page";
 import Editor from "./pages/Editor.page";
-import UserAuthProvider  from "./Hooks/UserContext"
+import UseAuthProvider from "./Hooks/UserContext";
+import EditorContextProvider from "./Hooks/UseEditorContext";
+
 function App() {
   return (
     <div>
-      <UserAuthProvider>
+      <UseAuthProvider>
+        <EditorContextProvider>
       <Routes> 
-         <Route path="editor" element={<Editor />} />
+        
+                   <Route path="editor" element={<Editor />} />
+       
 
         <Route path="/" element={<Navbar />}>
           <Route path="signin" element={<UserAuthform types="sign-in" />} />
@@ -16,7 +21,8 @@ function App() {
 
         </Route>
       </Routes>
-      </UserAuthProvider>
+      </EditorContextProvider>
+      </UseAuthProvider>
     </div>
   );
 }

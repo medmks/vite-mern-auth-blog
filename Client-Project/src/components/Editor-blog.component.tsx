@@ -5,14 +5,15 @@ import AnimationWrapper from '../common/animation-page'
 import supabase from '../common/supabase'
 import { v4 as uuidv4 } from 'uuid';
 import toast ,{Toaster} from 'react-hot-toast'
-console.log(supabase);
+import { UseEditorContext } from '../Hooks/UseEditorContext'
 
 
-
-//DEBUG:https://fsnavrdsbbyrbmtaddyb.supabase.co/storage/v1/object/public/BlogsImages/32e219ca-32cb-4ba7-86a3-fe4a4f336b76
 const BlogEditor = () => {
-const [Images,setImages] = useState({})
+
+        const [Images,setImages] = useState({})
         const imgRef = useRef<HTMLImageElement>(null)
+        const {blog,blog:{tags,title,content,banner,description,author}, setblog} = UseEditorContext()
+
         //BUG: bug here ⬇ 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const GetImages = async () => {
@@ -41,13 +42,14 @@ const [Images,setImages] = useState({})
            const input = e.target;
            input.style.height = 'auto' ;     
            input.style.height = input.scrollHeight + "px"
+           setblog(prevblog => ({...prevblog,title:input.value}))
         }
         const handelBannerup = async (e:React.ChangeEvent<HTMLInputElement> | null) => {
         const img = e?.target.files?.[0]
         if (img) {
                 const toastupload = toast.loading("Uploading...")
                 const {data, error} = await supabase
-                  .storage
+                  .storage                                                                                                                                                              
                   .from('BlogsImages')
                   .upload('/' + uuidv4().toString() , img);
                   if (data) {
@@ -57,6 +59,10 @@ const [Images,setImages] = useState({})
                                 toast.dismiss(toastupload)
                                 imgRef.current.src = CdnUrl;
                                 toast.success("Success")
+                                setblog(prevBlog => ({
+                                        ...prevBlog,
+                                        banner: CdnUrl
+                                      }));                      
                               } 
                   }
                   else{
@@ -75,7 +81,7 @@ const [Images,setImages] = useState({})
                               <Link className='flex-none w-10' to='/'>
                                         <img src={logo} alt='logo' />
                               </Link>
-                              <p className='max-md:hidden text-black line-clamp-1 w-full'>New Article</p>
+                              <p className='max-md:hidden text-black line-clamp-1 w-full'>{blog.title.length ? title :" New Article"}</p>
                               <div className='flex gap-4 ml-auto'>
                                         <button className='btn-dark py-2'>
                                                   Publish
@@ -91,17 +97,17 @@ const [Images,setImages] = useState({})
                               <section>
                                         <div className=' max-w-[999px] mx-auto w-full hover:opacity-80'>
                                                   <div className=' relative aspect-video bg-white border-4 border-grey'>
-                                                            <label htmlFor="uploadBanner">
+                                                        <label htmlFor="uploadBanner">
                                                             <img src={blogBanner} alt="" className='z-20' ref={imgRef} />
-
-                                                                      <input id='uploadBanner' type="file" onChange={(e)=>handelBannerup(e)} accept='.png, .jpg, .jpeg' hidden />
-                                                            </label>
+                                                                <input id='uploadBanner' type="file" onChange={(e)=>handelBannerup(e)} accept='.png, .jpg, .jpeg' hidden />
+                                                        </label>
                                                   </div>
-                                                  <textarea name="" id="" onChange={(e) => HandelchangeTitle(e)} onKeyDown={(e) => HandelKeydown(e)} className=' text-4xl font-medium w-full h-20 outline-none mt-10 leading-tight placeholder:opacity-40'  placeholder='Blog Title'>
+                                                  <textarea  onChange={(e) => HandelchangeTitle(e)} onKeyDown={(e) => HandelKeydown(e)} className=' resize-none text-4xl font-medium w-full h-20 outline-none mt-10 leading-tight placeholder:opacity-40'  placeholder='Blog Title'>
 
                                                   </textarea>
 
                                         </div>
+                                        <hr className=' opacity-10 w-full my-5' />
                               </section>
                     </AnimationWrapper>
           </>
