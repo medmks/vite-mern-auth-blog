@@ -18,7 +18,7 @@ stack, providing a robust foundation for developing a dynamic and responsive blo
 - Responsive Design: The website is built with a responsive design, ensuring a seamless user experience across various devices.
 
 
-## ::gem Installation
+## ::gem:Installation
 Clone Repository:
 
 bash
