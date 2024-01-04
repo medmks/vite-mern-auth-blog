@@ -1,10 +1,10 @@
-import { Link, } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { google } from "../assets";
 import InputBox from "../components/input.component";
 import AnimationWrapper from "../common/animation-page";
 import { useRef } from "react";
-import axios, {  AxiosResponse } from "axios";
-import toast , { Toaster } from "react-hot-toast";
+import axios, { AxiosResponse } from "axios";
+import toast, { Toaster } from "react-hot-toast";
 import { storeSesion } from "../common/session";
 import { UseUserAuthContext } from "../Hooks/UserContext";
 import { Navigate } from "react-router-dom";
@@ -12,16 +12,14 @@ type UserAuthformProp = {
   types: string;
 };
 type userAuthThoughServerProp = {
-  ServerRoute:string,
-  FormData :{[key: string]: string}
-}
+  ServerRoute: string;
+  FormData: { [key: string]: string };
+};
 
-const UserAuthform = ({ types }: UserAuthformProp) => {  
+const UserAuthform = ({ types }: UserAuthformProp) => {
+  const { userAuth, setuserAuth } = UseUserAuthContext();
 
-  const {userAuth  ,setuserAuth} = UseUserAuthContext();
-  
   console.log(userAuth.AccessToken);
-
 
   const UserIcon = (
     <svg
@@ -70,68 +68,67 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
       />
     </svg>
   );
-  const userAuthThoughServer = async ({ServerRoute , FormData}:userAuthThoughServerProp) => {
-
-
+  const userAuthThoughServer = async ({
+    ServerRoute,
+    FormData,
+  }: userAuthThoughServerProp) => {
     try {
-      const response: AxiosResponse = await axios.post( import.meta.env.VITE_SERVER_DOMAIN + `${ServerRoute}`, FormData);
-      toast.success("You have successfully logged in")
-      
+      const response: AxiosResponse = await axios.post(
+        import.meta.env.VITE_SERVER_DOMAIN + `${ServerRoute}`,
+        FormData,
+      );
+      toast.success("You have successfully logged in");
+
       // Handle the response data
       console.log(response.data);
-      storeSesion({ key: 'user', value: JSON.stringify(response.data) })
-      setuserAuth(response.data)
-
-      
+      storeSesion({ key: "user", value: JSON.stringify(response.data) });
+      setuserAuth(response.data);
     } catch (error) {
-
-        //REVIEW: Handle errors
+      //REVIEW: Handle errors
       if (axios.isAxiosError(error)) {
         //REVIEW: Axios error (e.g., network error, status code not in the 2xx range)
-        console.error('Axios Error:', error.message);
-        toast.error(error.message.toString())
+        console.error("Axios Error:", error.message);
+        toast.error(error.message.toString());
       } else {
-        // REVIEW: Non-Axios error   
-          const nonAxiosError = error as Error;
+        // REVIEW: Non-Axios error
+        const nonAxiosError = error as Error;
 
-        console.error('Non-Axios Error:', nonAxiosError.message);
+        console.error("Non-Axios Error:", nonAxiosError.message);
 
-        toast.error(nonAxiosError.message.toString())
+        toast.error(nonAxiosError.message.toString());
       }
     }
   };
 
-    const authFormRef = useRef<HTMLFormElement | null>(null)
-    const HandeleSubmit = (event: React.MouseEvent) => {
-      event.preventDefault();
+  const authFormRef = useRef<HTMLFormElement | null>(null);
+  const HandeleSubmit = (event: React.MouseEvent) => {
+    event.preventDefault();
 
-      // eslint-disable-next-line prefer-const
-      let serverRoute = types === "sign-in" ? "/sign-in" : "/sign-up";
-      // eslint-disable-next-line prefer-const
-      let form = new FormData(authFormRef.current!);
-      // eslint-disable-next-line prefer-const
-      let formData: { [key: string]: string } = {};
-  
-      for (const  [key, value] of form.entries()) {
-          formData[key] = value.toString(); // BUG: Ensure value is a string
+    // eslint-disable-next-line prefer-const
+    let serverRoute = types === "sign-in" ? "/sign-in" : "/sign-up";
+    // eslint-disable-next-line prefer-const
+    let form = new FormData(authFormRef.current!);
+    // eslint-disable-next-line prefer-const
+    let formData: { [key: string]: string } = {};
 
-      }
-      // console.log(formData);
-  // enqueueSnackbar('Book Deleted successfully', { variant: 'success' });
+    for (const [key, value] of form.entries()) {
+      formData[key] = value.toString(); // BUG: Ensure value is a string
+    }
+    // console.log(formData);
+    // enqueueSnackbar('Book Deleted successfully', { variant: 'success' });
 
-      userAuthThoughServer({
-          ServerRoute: serverRoute,
-          FormData:formData
-})
+    userAuthThoughServer({
+      ServerRoute: serverRoute,
+      FormData: formData,
+    });
   };
-  return (
-    userAuth.AccessToken ? <Navigate to="/" />
-    : 
+  return userAuth.AccessToken ? (
+    <Navigate to="/" />
+  ) : (
     <AnimationWrapper keyValue={types}>
-
       <section className=" h-cover flex w-full items-center justify-center flex-col">
-            <Toaster/>
-            
+        <Toaster />
+
         <form
           ref={authFormRef}
           className=" w-[80%] max-w-[400px] flex flex-col gap-6 justify-center items-center"
@@ -169,8 +166,10 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
             placeholder="Password"
           />
 
-            <button onClick={HandeleSubmit} className="btn-dark w-fit flex ">{types.replace("-"," ")}</button>
-         
+          <button onClick={HandeleSubmit} className="btn-dark w-fit flex ">
+            {types.replace("-", " ")}
+          </button>
+
           <div className="relative w-full flex items-center my-5 opacity-10 uppercase text-black gap-2 font-bold ">
             <hr className=" w-1/2 bg-black" />
             <p>or</p>

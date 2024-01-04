@@ -4,6 +4,8 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
+    // "typeRoots": ["./types"], // Chemin vers le répertoire contenant vos définitions de types
+    // "types": [],
     "skipLibCheck": true,
 
     /* Bundler mode */

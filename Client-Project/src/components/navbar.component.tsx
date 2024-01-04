@@ -4,11 +4,10 @@ import { useState } from "react";
 import { UseUserAuthContext } from "../Hooks/UserContext";
 import Usernavigation from "./User-navigating.component";
 const Navbar = () => {
-
   const [ToggleSearch, setToggleSearch] = useState(false);
   const [UserNavPanel, setUserNavPanel] = useState(false);
 
-  const {userAuth } =UseUserAuthContext();
+  const { userAuth } = UseUserAuthContext();
 
   return (
     <>
@@ -82,38 +81,51 @@ const Navbar = () => {
             </svg>
             <p>write</p>
           </Link>
-{
-  userAuth.AccessToken  ? 
-  <>
-    <Link to="/dashboard" >
-        <button className=" bg-grey w-12 h-12 hover:bg-black/10 rounded-full flex justify-center items-center ">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-2xl block mt-1">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-                </svg>
-        </button>
-    </Link>
-    <div className="relative">
-      <button className="w-12 h-12 mt-1 rounded-full" onClick={()=> setUserNavPanel(prev =>!prev)}>
-        <img className="rounded-full object-cover w-full h-full" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.FiqQVZ9jc1WyZpJXcOa1MQHaE8%26pid%3DApi&f=1&ipt=5fb3dd1d2859b98216cd0142070aea48521de3a29b3e2a2f876e2e328cc76d64&ipo=images" alt=""  />
-      </button>
-      {
-        UserNavPanel &&       <Usernavigation/>
+          {userAuth.AccessToken ? (
+            <>
+              <Link to="/dashboard">
+                <button className=" bg-grey w-12 h-12 hover:bg-black/10 rounded-full flex justify-center items-center ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 text-2xl block mt-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+                    />
+                  </svg>
+                </button>
+              </Link>
+              <div className="relative">
+                <button
+                  className="w-12 h-12 mt-1 rounded-full"
+                  onClick={() => setUserNavPanel((prev) => !prev)}
+                >
+                  <img
+                    className="rounded-full object-cover w-full h-full"
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.FiqQVZ9jc1WyZpJXcOa1MQHaE8%26pid%3DApi&f=1&ipt=5fb3dd1d2859b98216cd0142070aea48521de3a29b3e2a2f876e2e328cc76d64&ipo=images"
+                    alt=""
+                  />
+                </button>
+                {UserNavPanel && <Usernavigation />}
+              </div>
+            </>
+          ) : (
+            <>
+              <Link className="btn-dark py-2 " to={"/signin"}>
+                Sign In
+              </Link>
 
-      }
-    </div>
-  </>
-  :
-<>
-        <Link className="btn-dark py-2 " to={"/signin"}>
-          Sign In
-        </Link>
-
-        <Link className="btn-light py-2  hidden md:block" to={"/signup"}>
-          Sign Up
-        </Link>
- </>
-
-}
+              <Link className="btn-light py-2  hidden md:block" to={"/signup"}>
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
       </nav>
       <Outlet />

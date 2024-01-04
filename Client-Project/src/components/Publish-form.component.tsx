@@ -1,8 +1,4 @@
 const Publishform = () => {
-return (
-          <div>
-                    
-          </div>
-)
-} 
-export default Publishform
+  return <div></div>;
+};
+export default Publishform;
