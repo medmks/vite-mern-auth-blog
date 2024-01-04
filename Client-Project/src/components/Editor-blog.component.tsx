@@ -14,7 +14,7 @@ const BlogEditor = () => {
   const imgRef = useRef<HTMLImageElement>(null);
   const {
     blog,
-    blog: {title, tags,  content, banner, description, author },
+    blog: { title, tags, content, banner, description, author },
     setblog,
   } = UseEditorContext();
 
@@ -37,6 +37,7 @@ const BlogEditor = () => {
     if (e.keyCode === 13) return e.preventDefault();
   };
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const Editor = new EditorJS({
       holder: "textEditor",
       data: undefined,
