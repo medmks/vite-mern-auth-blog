@@ -12,14 +12,13 @@ function uploadImageByUrl(e: string) {
   const link = new Promise((resolve, reject) => {
     try {
       resolve(e);
-      console.log(e); // Log the URL to the console
+      console.log(e); //IDEA Log the URL to the console
     } catch (error) {
-      // If there's an error, reject the Promise
+      // //DEBUG: If there's an error, reject the Promise
       reject(error);
     }
   });
-
-  // Returning a new Promise that resolves with an object containing success and the URL
+  //DEBUG: Returning a new Promise that resolves with an object containing success and the URL
   return link.then((url) => {
     return {
       success: 1,

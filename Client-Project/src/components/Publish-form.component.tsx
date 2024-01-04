@@ -1,4 +1,4 @@
 const Publishform = () => {
-  return <div></div>;
+  return <div>Fuck Israel</div>;
 };
 export default Publishform;

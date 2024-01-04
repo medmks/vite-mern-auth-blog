@@ -6,16 +6,21 @@ import supabase from "../common/supabase";
 import { v4 as uuidv4 } from "uuid";
 import toast, { Toaster } from "react-hot-toast";
 import { UseEditorContext } from "../Hooks/UseEditorContext";
-import EditorJS from "@editorjs/editorjs";
+import EditorJS, { OutputData } from "@editorjs/editorjs";
 import { tools } from "./tools.component";
+import { textEditorProp } from "../Hooks/UseEditorContext";
+
 
 const BlogEditor = () => {
   const [Images, setImages] = useState({});
   const imgRef = useRef<HTMLImageElement>(null);
   const {
     blog,
-    blog: { title, tags, content, banner, description, author },
     setblog,
+    textEditor,
+    setTextEditor,
+    setEditorState
+    
   } = UseEditorContext();
 
   //BUG: bug here ⬇
@@ -38,19 +43,41 @@ const BlogEditor = () => {
   };
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const Editor = new EditorJS({
+    setTextEditor(new EditorJS({
       holder: "textEditor",
       data: undefined,
       tools: tools,
       placeholder: "let's write awesome story",
-    });
+    }) ) 
   }, []);
+
+  const handelPublish = () => {
+        
+        if(!blog.banner.length){
+                toast.error("Insert the banner to upload the blog")
+        }
+        if(!blog?.title.length){
+                toast.error("title is required to upload the blog")
+        }    
+        if(textEditor?.isReady){
+                textEditor.save().then((data:textEditorProp | OutputData) => {
+                        if(data.blocks.length && data !== undefined){
+                                setblog(prev => ({...prev , content:data}))
+                                setEditorState("publish")
+                        }
+                })
+        }
+  
+                
+  }
   //TODO: resizing the height while typing in textarea
   const HandelchangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const input = e.target;
     input.style.height = "auto";
     input.style.height = input.scrollHeight + "px";
-    setblog((prevblog) => ({ ...prevblog, title: input.value }));
+    if(blog){
+                setblog((prevblog) => ({ ...prevblog, title: input.value }));
+    }
   };
   const handelBannerup = async (
     e: React.ChangeEvent<HTMLInputElement> | null,
@@ -87,10 +114,10 @@ const BlogEditor = () => {
           <img src={logo} alt="logo" />
         </Link>
         <p className="max-md:hidden text-black line-clamp-1 w-full">
-          {blog.title.length ? title : " New Article"}
+          {blog.title.length ? blog.title : " New Article"}
         </p>
         <div className="flex gap-4 ml-auto">
-          <button className="btn-dark py-2">Publish</button>
+          <button className="btn-dark py-2" onClick={() => handelPublish()}>Publish</button>
           <button className=" btn-light py-2">Save draft</button>
         </div>
       </nav>
