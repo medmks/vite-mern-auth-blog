@@ -53,20 +53,20 @@ const BlogEditor = () => {
 
   const handelPublish = () => {
         
-        if(!blog.banner.length){
-                toast.error("Insert the banner to upload the blog")
-        }
-        if(!blog?.title.length){
-                toast.error("title is required to upload the blog")
-        }    
-        if(textEditor?.isReady){
-                textEditor.save().then((data:textEditorProp | OutputData) => {
+        // if(!blog.banner.length){
+        //         toast.error("Insert the banner to upload the blog")
+        // }
+        // if(!blog?.title.length){
+        //         toast.error("title is required to upload the blog")
+        // }    
+        // if(textEditor?.isReady){
+                textEditor?.save().then((data:textEditorProp | OutputData) => {
                         if(data.blocks.length && data !== undefined){
                                 setblog(prev => ({...prev , content:data}))
                                 setEditorState("publish")
                         }
                 })
-        }
+        // }
   
                 
   }
@@ -138,6 +138,7 @@ const BlogEditor = () => {
               </label>
             </div>
             <textarea
+            defaultValue={blog.title}
               onChange={(e) => HandelchangeTitle(e)}
               onKeyDown={(e) => HandelKeydown(e)}
               className=" resize-none text-4xl font-medium w-full h-20 outline-none mt-10 leading-tight placeholder:opacity-40"

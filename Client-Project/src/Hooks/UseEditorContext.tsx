@@ -18,7 +18,7 @@ interface Tblog {
   title: string;
   content: OutputData,
   banner: string;
-  tags: string;
+  tags: string[];
   description: string;
   author: string;
 }
@@ -44,7 +44,7 @@ export function EditorContextProvider({ children }: Childernproviderprops) {
     title: "",
     content: {time: 0, blocks: [{id:'',type:"",data:{text:""}}], version: ""},
     banner: "",
-    tags: "",
+    tags: ["tag1","tag2","tag3"],
     description: "",
     author: "",
   };
