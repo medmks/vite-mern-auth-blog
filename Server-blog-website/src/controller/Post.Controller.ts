@@ -17,15 +17,17 @@ export async function CreatePostHandler(req:Request<{},{},CreatePostInput['body'
         //BUG: bug here ⬇ 
 
 export async function FindPostHandler(req:Request<GetPostInput["params"]>,res:Response) {
-          try{
+          try{  
+                    const postid = req.params.postid;
 
-                    const Post_id = req.params.postid;
+                        console.log(postid);
+                        
+                    const post= await FindPost({postid})
 
 
-                    const post= await FindPost({Post_id})
-
-
-                    if(!post){ return res.send(404)}
+                    if(!post)
+                    { return res.sendStatus(404)
+                }
 
                    return res.send(post)
 

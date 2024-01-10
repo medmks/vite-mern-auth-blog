@@ -6,7 +6,6 @@ export interface UserInput {
   name?: string
   password?: string
 }
-
 export interface UserDoc extends UserInput, mongoose.Document {
   comparePassword(candidatePassword: String): Promise<Boolean>
   createdAt: Date

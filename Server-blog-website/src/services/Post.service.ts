@@ -3,21 +3,39 @@ import { PostDoc, PostInput, PostModel } from "../Models/Post.Model";
 
 export async function CreatePost(input:PostInput) {
           try{
-                   return await  PostModel.create(input)
-                    
-                    
+                  return await  PostModel.create(input)
+                     
           }catch(error){
-                    if(error instanceof mongoose.Error.ValidationError) throw new Error("ValidatorError" + error.message )
+                    if(error instanceof mongoose.Error.ValidationError){
+                         throw new Error("ValidatorError" + error.message )
+                        }
                     else{
-                    throw new Error ("Unxpected Error" + error.message)
+                        throw new Error ("Unxpected Error" + error.message)
                     }
           }
 }
-export async function FindPost(query:FilterQuery<PostDoc>,options:QueryOptions = {lean:true}) {
-const post = await PostModel.findOne(query,{},options)
+export async function FindPost(
+      query: FilterQuery<PostDoc>,
+      options: QueryOptions = { lean: true }
+    ) {
 
-      return post
-}
+      try {
+        const result = await PostModel.findOne(query, {}, options);
+      
+        return result;
+      } catch (e) {
+
+    
+        throw e;
+      }
+    }
+// export async function FindPost(query:FilterQuery<PostDoc>,options:QueryOptions = {lean:true}) {
+// const post = await PostModel.findOne(query,{},options)
+
+//             console.log(post);
+
+//       return post
+// }
 export async function FindandUpdatePost(query:FilterQuery<PostDoc>, update:UpdateQuery<PostDoc>, options:QueryOptions) {
           return PostModel.findOneAndUpdate(query,update,options) 
 }

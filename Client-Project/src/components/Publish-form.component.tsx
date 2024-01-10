@@ -5,8 +5,8 @@ import React  from "react";
 
 const Publishform = () => {
   const { blog ,blog:{tags},setblog ,setEditorState } = UseEditorContext();
-  // const InputRef = useRef()
-
+  console.log(blog);
+  
   const Taglimit:number = 10 
 
   const HandelKeyDown = (e:React.KeyboardEvent<HTMLInputElement>) => {
@@ -23,7 +23,6 @@ const Publishform = () => {
     if(e.target instanceof HTMLParagraphElement){
       e.target.setAttribute("contentEditable","true");
       e.target.focus();
-
     }
   }
   const HandelkeyTagdown = (e:React.KeyboardEvent<HTMLParagraphElement>,tagIndex:number) =>{
@@ -63,22 +62,22 @@ const closePublisform = () => {
            <h1 className=" text-4xl font-medium mt-2 leading-tight line-clamp-2">{blog.title}</h1>
         </div>
         <div className=" flex flex-col gap-5">
-          <label className="text-xl font-gelasio text-dark-grey leading-5" htmlFor="Blog Title ">Blog Title</label>
-          <input className="bg-grey rounded-md mb-10 outline-none h-10 py-7 p-4 text-black font-gelasio mt-2  text-xl  "  type="text" placeholder="Edit Blog Title" />
+          <p className="text-xl font-gelasio text-dark-grey leading-5">Blog Title</p>
+          <input defaultValue={blog.title} onChange={(e) => setblog({...blog, title:e.target.value})} className="bg-grey rounded-md mb-10 outline-none h-10 py-7 p-4 text-black font-gelasio mt-2  text-xl"  type="text" placeholder="Edit Blog Title" />
 
-          <label className="text-xl font-gelasio text-dark-grey leading-5 " htmlFor="Blog Description    ">Blog Description</label>
-          <textarea className="bg-grey rounded-md outline-none mb-10 input-box resize-none h-40 p-5 text-xl font-gelasio    " >
+          <p className="text-xl font-gelasio text-dark-grey leading-5 " >Blog Description</p>
+          <textarea onChange={(e) => setblog({...blog, description:e.target.value})} className="bg-grey rounded-md outline-none mb-10 input-box resize-none h-40 p-5 text-xl font-gelasio    " >
           </textarea>
           
-          <label className="text-xl font-gelasio text-dark-grey leading-5" htmlFor="Blog Description ">Topics - help us searching and ranking your blog</label>
+          <p className="text-xl font-gelasio text-dark-grey leading-5" >Topics - help us searching and ranking your blog</p>
 
           <div className="bg-grey h-fit  rounded-md p-5 ">
-            <input  placeholder="Tags" disabled={Taglimit === blog.tags.length ? true: false }  type="text" onKeyDown={(e) => HandelKeyDown(e)} className="bg-white resize-none  rounded-md mb-10 outline-none h-10 py-7 p-4 text-black font-gelasio mt-2  text-xl  "  />
+            <input  placeholder="Tags" disabled={Taglimit === blog.tags.length ? true: false }  type="text" onKeyDown={(e) => HandelKeyDown(e)} className="bg-white resize-none w-full  rounded-md mb-10 outline-none h-10 py-7 p-4 text-black font-gelasio mt-2  text-xl  "  />
             <div className="flex flex-wrap  input-box">
               {
                 blog?.tags?.map((tag , i) => {
                   return (
-                    <div key={i} className=" gap-9 flex flex-row  justify-evenly   items-center  p-2  mr-2 px-5 bg-white rounded-full ">
+                    <div key={i} className=" gap-9 flex flex-row  justify-evenly mt-3  items-center  p-2  mr-2 px-5 bg-white rounded-full ">
                      <p className=" outline-none" onKeyDown={(e) => {HandelkeyTagdown(e,i)}} onClick={(e)=>{AddEditable(e)}}>{tag}</p> 
                       <button onClick={() => removeTag(tag)} className="  rounded-full ">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7">
