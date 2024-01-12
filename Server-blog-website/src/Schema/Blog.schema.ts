@@ -7,7 +7,7 @@ const payload = {
           body :object({
              title : string({required_error:"Title is required"}),
              banner:string({required_error:"image is required"}),
-             description:string({required_error:"description is required"}),
+             description:string({required_error:"description is required"}).min(20,"max 20 letter"),
        
           })
 }

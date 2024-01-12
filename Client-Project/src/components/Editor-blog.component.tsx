@@ -109,18 +109,21 @@ const BlogEditor = () => {
 
   return (
     <>
-      <nav className="navbar">
-        <Link className="flex-none w-10" to="/">
-          <img src={logo} alt="logo" />
-        </Link>
+      <nav className="navbar    text-white   ">
+      <div className="flex gap-4 ml-auto">
+          <button className="whitespace-nowrap bg-dark-grey text-white rounded-full py-3 px-8 text-xl capitalize hover:bg-opacity-80  " onClick={() => handelPublish()}>Publish</button>
+          <button className=" btn-light py-2">Save draft</button>
+        </div>
+{/* //     @apply z-10 sticky top-0 flex items-center gap-12 w-full px-[5vw] py-5 h-[80px] border-b border-grey bg-white; */}
+
         <p className="max-md:hidden text-black line-clamp-1 w-full">
           {blog.title.length ? blog.title : " New Article"}
         </p>
-        <div className="flex gap-4 ml-auto">
-          <button className="btn-dark py-2" onClick={() => handelPublish()}>Publish</button>
-          <button className=" btn-light py-2">Save draft</button>
-        </div>
-      </nav>
+        <Link className="flex-none w-10   " to="/">
+          <img src={logo} alt="logo" />
+        </Link>
+      </nav> 
+ 
       <AnimationWrapper>
         <Toaster />
         <section>

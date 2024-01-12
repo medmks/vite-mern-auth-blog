@@ -1,13 +1,17 @@
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import AnimationWrapper from "../common/animation-page";
 import {UseEditorContext} from "../Hooks/UseEditorContext";
 import React  from "react";
+import axios from "axios";
+import { UseUserAuthContext } from "../Hooks/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Publishform = () => {
-  const { blog ,blog:{tags},setblog ,setEditorState } = UseEditorContext();
-  console.log(blog);
+  const { blog ,blog:{tags,title,content,description,author,banner},setblog ,setEditorState } = UseEditorContext();
+  const navigate = useNavigate()
   
   const Taglimit:number = 10 
+  const { userAuth } = UseUserAuthContext();
 
   const HandelKeyDown = (e:React.KeyboardEvent<HTMLInputElement>) => {
     const input =  e?.target
@@ -37,10 +41,43 @@ const Publishform = () => {
     }
   }
 }
+const handelPublish = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
+  e.preventDefault() 
+   if (!title||!content||!description) {
+      toast.error("make sure that all fields filled in ")
+  }
+  const WrittenBlog = {title,content,banner,description,author}
+
+  const loading = toast.loading("loading..")
+  if (e.target instanceof HTMLButtonElement){
+    e.target.classList.add('disable')
+}
+
+  axios.post(import.meta.env.VITE_SERVER_DOMAIN+ "/newBlog" ,WrittenBlog,{
+    headers:{ 
+      'Authorization':`Bearer ${userAuth.AccessToken}`,
+      "x-refresh":  userAuth.RefreshToken
+    }
+  }).then(() => {
+    if (e.target instanceof HTMLButtonElement){
+      e.target.classList.remove('disable')
+      toast.dismiss(loading)
+      toast.success("Published 💫")
+      // setTimeout(()=>{
+      //     navigate('/')
+      // },500)
+  }
+  }).catch(({response}) =>{
+    if (e.target instanceof HTMLButtonElement){
+      e.target.classList.remove('disable')
+      toast.dismiss(loading)
+  }
+    return toast.error(response.data.error +"💥")
+
+  })
+}
 const closePublisform = () => {
   setEditorState("editor")
-  console.log("h");
-  
 }
   const removeTag = (RemovedTag:string) => {
     const FiltredTagblog = blog.tags.filter(tag => tag !== RemovedTag)
@@ -93,8 +130,10 @@ const closePublisform = () => {
           </div>
 
           <p className=" font-gelasio"> {Taglimit - blog.tags.length } Tags left </p>
+        <button className="btn-dark px-8 " onClick={(e) => handelPublish(e)}>Publish</button>
 
         </div>
+
     </section>
     {/* Fuck Israel */}
     

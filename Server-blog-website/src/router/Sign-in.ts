@@ -15,9 +15,8 @@ export default (router: Router) => {
   router.post('/api/sign-in', Validate(CreatesessionSchema), createSessionHandler)
   router.get('/api/session', requireUser, getUserSessionHandeler);
   router.delete("/api/session",requireUser,DeleteSessoinHandeler);
-  // router.post("/api/newPost", [requireUser, Validate(CreatePostSchema) ],CreatePostHandler)
   router.get("/api/posts/:postid", Validate(GetPostSchema) ,FindPostHandler)
-  router.post("/api/newBlog" , [requireUser ],createBlogHandler)
+  router.post("/api/newBlog" , [requireUser, Validate(CreateblogSchema) ],createBlogHandler)
 
 
 }
