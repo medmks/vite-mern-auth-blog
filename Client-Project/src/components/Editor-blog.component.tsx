@@ -10,18 +10,11 @@ import EditorJS, { OutputData } from "@editorjs/editorjs";
 import { tools } from "./tools.component";
 import { textEditorProp } from "../Hooks/UseEditorContext";
 
-
 const BlogEditor = () => {
   const [Images, setImages] = useState({});
   const imgRef = useRef<HTMLImageElement>(null);
-  const {
-    blog,
-    setblog,
-    textEditor,
-    setTextEditor,
-    setEditorState
-    
-  } = UseEditorContext();
+  const { blog, setblog, textEditor, setTextEditor, setEditorState } =
+    UseEditorContext();
 
   //BUG: bug here ⬇
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,40 +36,39 @@ const BlogEditor = () => {
   };
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setTextEditor(new EditorJS({
-      holder: "textEditor",
-      data: undefined,
-      tools: tools,
-      placeholder: "let's write awesome story",
-    }) ) 
+    setTextEditor(
+      new EditorJS({
+        holder: "textEditor",
+        data: undefined,
+        tools: tools,
+        placeholder: "let's write awesome story",
+      }),
+    );
   }, []);
 
   const handelPublish = () => {
-        
-        // if(!blog.banner.length){
-        //         toast.error("Insert the banner to upload the blog")
-        // }
-        // if(!blog?.title.length){
-        //         toast.error("title is required to upload the blog")
-        // }    
-        // if(textEditor?.isReady){
-                textEditor?.save().then((data:textEditorProp | OutputData) => {
-                        if(data.blocks.length && data !== undefined){
-                                setblog(prev => ({...prev , content:data}))
-                                setEditorState("publish")
-                        }
-                })
-        // }
-  
-                
-  }
+    // if(!blog.banner.length){
+    //         toast.error("Insert the banner to upload the blog")
+    // }
+    // if(!blog?.title.length){
+    //         toast.error("title is required to upload the blog")
+    // }
+    // if(textEditor?.isReady){
+    textEditor?.save().then((data: textEditorProp | OutputData) => {
+      if (data.blocks.length && data !== undefined) {
+        setblog((prev) => ({ ...prev, content: data }));
+        setEditorState("publish");
+      }
+    });
+    // }
+  };
   //TODO: resizing the height while typing in textarea
   const HandelchangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const input = e.target;
     input.style.height = "auto";
     input.style.height = input.scrollHeight + "px";
-    if(blog){
-                setblog((prevblog) => ({ ...prevblog, title: input.value }));
+    if (blog) {
+      setblog((prevblog) => ({ ...prevblog, title: input.value }));
     }
   };
   const handelBannerup = async (
@@ -110,11 +102,16 @@ const BlogEditor = () => {
   return (
     <>
       <nav className="navbar    text-white   ">
-      <div className="flex gap-4 ml-auto">
-          <button className="whitespace-nowrap bg-dark-grey text-white rounded-full py-3 px-8 text-xl capitalize hover:bg-opacity-80  " onClick={() => handelPublish()}>Publish</button>
+        <div className="flex gap-4 ml-auto">
+          <button
+            className="whitespace-nowrap bg-dark-grey text-white rounded-full py-3 px-8 text-xl capitalize hover:bg-opacity-80  "
+            onClick={() => handelPublish()}
+          >
+            Publish
+          </button>
           <button className=" btn-light py-2">Save draft</button>
         </div>
-{/* //     @apply z-10 sticky top-0 flex items-center gap-12 w-full px-[5vw] py-5 h-[80px] border-b border-grey bg-white; */}
+        {/* //     @apply z-10 sticky top-0 flex items-center gap-12 w-full px-[5vw] py-5 h-[80px] border-b border-grey bg-white; */}
 
         <p className="max-md:hidden text-black line-clamp-1 w-full">
           {blog.title.length ? blog.title : " New Article"}
@@ -122,8 +119,8 @@ const BlogEditor = () => {
         <Link className="flex-none w-10   " to="/">
           <img src={logo} alt="logo" />
         </Link>
-      </nav> 
- 
+      </nav>
+
       <AnimationWrapper>
         <Toaster />
         <section>
@@ -141,7 +138,7 @@ const BlogEditor = () => {
               </label>
             </div>
             <textarea
-            defaultValue={blog.title}
+              defaultValue={blog.title}
               onChange={(e) => HandelchangeTitle(e)}
               onKeyDown={(e) => HandelKeydown(e)}
               className=" resize-none text-4xl font-medium w-full h-20 outline-none mt-10 leading-tight placeholder:opacity-40"

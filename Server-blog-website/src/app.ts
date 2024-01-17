@@ -10,7 +10,7 @@ const server: Express = express()
 
 
 server.use(express.json())
-server.use(deserializeUser)
+// server.use(deserializeUser)
 server.use(cors())
 server.use('/', router())
 

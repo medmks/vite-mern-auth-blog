@@ -12,14 +12,11 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         {/*@apply z-10 sticky top-0 flex items-center gap-12 w-full px-[5vw] py-5 h-[80px] border-b border-grey bg-white;*/}
-    
 
         <div className=" flex  items-center gap-5  ml-auto">
-
-        
           {userAuth.AccessToken ? (
             <>
-            <div className="relative">
+              <div className="relative">
                 <button
                   className="w-12 h-12 mt-1 rounded-full"
                   onClick={() => setUserNavPanel((prev) => !prev)}
@@ -50,11 +47,9 @@ const Navbar = () => {
                   </svg>
                 </button>
               </Link>
-              
             </>
           ) : (
             <>
-            
               <Link className="btn-dark py-2 " to={"/signin"}>
                 Sign In
               </Link>
@@ -64,10 +59,12 @@ const Navbar = () => {
               </Link>
             </>
           )}
-            <button
+          <button
             className="md:hidden bg-grey w-12 h-12 rounded-full flex items-center justify-center "
-            onClick={() => {setToggleSearch((currentval) => !currentval) ;console.log(ToggleSearch)}
-            }
+            onClick={() => {
+              setToggleSearch((currentval) => !currentval);
+              console.log(ToggleSearch);
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +81,7 @@ const Navbar = () => {
               />
             </svg>
           </button>
-            <Link to={"/editor"} className=" hidden md:flex gap-3 link ">
+          <Link to={"/editor"} className=" hidden md:flex gap-3 link ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -102,12 +99,13 @@ const Navbar = () => {
             <p>write</p>
           </Link>
         </div>
-      
+
         <div
-          className={"absolute bg-white w-full left-0 top-full mt-0.! border-b border-grey py-4 px-[5vw] md:border-0 md:block md:relative md:inset-0 md:p-0 md:w-auto md:show " + (ToggleSearch ? "show" : "hide")
+          className={
+            "absolute bg-white w-full left-0 top-full mt-0.! border-b border-grey py-4 px-[5vw] md:border-0 md:block md:relative md:inset-0 md:p-0 md:w-auto md:show " +
+            (ToggleSearch ? "show" : "hide")
           }
         >
-
           <input
             type="text"
             className="w-full md:w-auto bg-grey p-4 pr-[12%] md:pr-6 rounded-full placeholder:text-dark-grey md:pl-12 "

@@ -5,18 +5,20 @@ type Childernproviderprops = {
   children: React.ReactNode;
 };
 type Tblock = {
-  id:string,
-  type:string
-  data:{
-          text:string
-  }
-} 
+  id: string;
+  type: string;
+  data: {
+    text: string;
+  };
+};
 export type textEditorProp = {
-  time: number, blocks: Tblock[], version: string
-} 
-interface Tblog {
+  time: number;
+  blocks: Tblock[];
+  version: string;
+};
+export interface Tblog {
   title: string;
-  content: OutputData,
+  content: OutputData;
   banner: string;
   tags: string[];
   description: string;
@@ -25,34 +27,34 @@ interface Tblog {
 type EditorProps = {
   EditorState: string;
   setEditorState: React.Dispatch<React.SetStateAction<string>>;
-    //TODO: blog state  
+  //TODO: blog state
 
-  blog: Tblog 
-  setblog: React.Dispatch<
-    React.SetStateAction<Tblog >
-  >;
-  textEditor:EditorJS | null
-setTextEditor:React.Dispatch<React.SetStateAction<EditorJS | null>>
+  blog: Tblog;
+  setblog: React.Dispatch<React.SetStateAction<Tblog>>;
+  textEditor: EditorJS | null;
+  setTextEditor: React.Dispatch<React.SetStateAction<EditorJS | null>>;
 };
 
 const EditorContext = createContext<EditorProps | undefined>(undefined);
 
 export function EditorContextProvider({ children }: Childernproviderprops) {
-  
   const initialState = {
-    
     title: "",
-    content: {time: 0, blocks: [{id:'',type:"",data:{text:""}}], version: ""},
+    content: {
+      time: 0,
+      blocks: [{ id: "", type: "", data: { text: "" } }],
+      version: "",
+    },
     banner: "",
-    tags: ["tag1","tag2","tag3"],
+    tags: ["tag1", "tag2", "tag3"],
     description: "",
     author: "",
   };
   const [EditorState, setEditorState] = useState<string>("editor");
-  //TODO: blog state  
+  //TODO: blog state
 
   const [blog, setblog] = useState<Tblog>(initialState);
-  const [textEditor, setTextEditor] = useState<EditorJS | null>(null)
+  const [textEditor, setTextEditor] = useState<EditorJS | null>(null);
 
   useEffect(() => {
     setEditorState("editor");
@@ -60,7 +62,14 @@ export function EditorContextProvider({ children }: Childernproviderprops) {
 
   return (
     <EditorContext.Provider
-      value={{ EditorState, setEditorState, blog, setblog,textEditor,setTextEditor }}
+      value={{
+        EditorState,
+        setEditorState,
+        blog,
+        setblog,
+        textEditor,
+        setTextEditor,
+      }}
     >
       {children}
     </EditorContext.Provider>

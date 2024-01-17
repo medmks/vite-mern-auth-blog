@@ -16,3 +16,20 @@ try{
 }
 
 }
+
+export async function GetLatestblogs(){
+    try{
+
+        const blogs = await Blogmodel.find({draft:false}) 
+          .populate("author","name")
+          .sort({"createdAt":-1})
+          .select("blog_id tags createdAt description title activity banner -_id ")
+          .limit(5)
+       
+          return blogs
+    }
+    catch(error){
+                      throw new Error ("Unxpected Error" + error.message)
+
+    }
+}
