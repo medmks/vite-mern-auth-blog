@@ -1,5 +1,5 @@
 import { createbloginput } from "../Schema/Blog.schema";
-import { GetLatestblogs, createNewBlog } from "../services/blog.service";
+import { GetLatestblogs, createNewBlog, getTrendsblogs } from "../services/blog.service";
 import { Request, Response } from "express";
 
 export async function createBlogHandler(req:Request<{},{},createbloginput['body']>,res:Response){
@@ -17,6 +17,15 @@ export async function createBlogHandler(req:Request<{},{},createbloginput['body'
 export async function GetltestBloghandler(req:Request,res:Response) {
     try{
         const blogs = await GetLatestblogs()
+        return res.status(200).send(blogs) 
+    }catch(error){
+          return res.status(409).send(error.message)
+
+    }
+}
+export async function GetTrendsBloghandler(req:Request,res:Response) {
+    try{
+        const blogs = await getTrendsblogs()
         return res.status(200).send(blogs) 
     }catch(error){
           return res.status(409).send(error.message)

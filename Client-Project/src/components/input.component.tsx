@@ -26,7 +26,7 @@ const InputBox = ({
       strokeWidth={1.5}
       stroke="currentColor"
       onClick={() => setvisiblePasword((currentval) => !currentval)}
-      className="w-6 left-auto right-4 h-6 cursor-pointer   input-icon "
+      className="w-6 h-6 right-auto left-12  cursor-pointer   input-icon "
     >
       <path
         strokeLinecap="round"
@@ -48,7 +48,7 @@ const InputBox = ({
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6 left-auto right-4 cursor-pointer input-icon"
+      className="w-6 h-6 right-auto left-12 cursor-pointer input-icon"
     >
       <path
         strokeLinecap="round"
@@ -60,7 +60,7 @@ const InputBox = ({
   return (
     <div className="relative w-[100%] mb-4 ">
       <input
-        className="input-box"
+        className="input-box "
         type={
           type === "password" ? (visiblePasword ? "text" : "password") : type
         }

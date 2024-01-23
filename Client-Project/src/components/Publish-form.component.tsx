@@ -26,7 +26,6 @@ const Publishform = () => {
 
       setblog({ ...blog, tags: [...tags, input.value] });
       console.log(blog);
-      
     }
   };
   const AddEditable = (
@@ -50,7 +49,7 @@ const Publishform = () => {
         blog.tags[tagIndex] = newTagValue;
         setblog({ ...blog, tags });
         console.log(blog);
-        
+
         console.log(blog.tags);
       }
     }

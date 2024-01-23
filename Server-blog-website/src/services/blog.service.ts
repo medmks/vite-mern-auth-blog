@@ -33,3 +33,19 @@ export async function GetLatestblogs(){
 
     }
 }
+export async function getTrendsblogs(){
+    try{
+
+        const blogs = await Blogmodel.find({draft:false}) 
+          .populate("author","name")
+          .sort({"activity.total_reads":-1,"activity.total_likes":-1 ,"createdAt":-1})
+          .select("blog_id createdAt  title -_id ")
+          .limit(5)
+       
+          return blogs
+    }
+    catch(error){
+                      throw new Error ("Unxpected Error" + error.message)
+
+    }
+}
