@@ -5,8 +5,8 @@ type Troutes = {
   defaulthidden: string[];
   children: React.ReactNode;
 };
-export let ActiveTab :React.RefObject<HTMLButtonElement>
-export let Activelineref :  React.RefObject<HTMLHRElement>
+export let ActiveTab: React.RefObject<HTMLButtonElement>;
+export let Activelineref: React.RefObject<HTMLHRElement>;
 const InPageNavigation = ({
   routes,
   defaultIndex = 0,
@@ -16,7 +16,7 @@ const InPageNavigation = ({
   const [indexroute, setindexroute] = useState(defaultIndex);
 
   Activelineref = useRef<HTMLHRElement>(null);
-    ActiveTab = useRef<HTMLButtonElement>(null);
+  ActiveTab = useRef<HTMLButtonElement>(null);
 
   const Changepagestate = (btn: EventTarget, index: number) => {
     if (btn instanceof HTMLButtonElement && Activelineref.current) {
@@ -29,7 +29,7 @@ const InPageNavigation = ({
   };
   useEffect(() => {
     if (ActiveTab.current && Activelineref.current) {
-      Changepagestate(ActiveTab.current, defaultIndex); 
+      Changepagestate(ActiveTab.current, defaultIndex);
     }
   }, [defaultIndex]);
   return (

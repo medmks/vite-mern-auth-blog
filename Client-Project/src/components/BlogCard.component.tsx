@@ -1,7 +1,7 @@
-import type { TBlog } from "../pages/Home.page";
+import type { blog } from "../pages/Home.page";
 import { Getthedate } from "../common/date";
 import { Link } from "react-router-dom";
-const BlogCard = ({ blog }: TBlog) => {
+const BlogCard = ({ blog }: blog) => {
   return (
     <Link
       className="flex items-center  gap-8 border-b border-grey pb-4 mb-4"

@@ -6,6 +6,7 @@ import BlogCard from "../components/BlogCard.component";
 import Minimalblog from "../components/minimalblog.component";
 import { ActiveTab } from "../components/InPageNavigation.component";
 import Loader from "../components/loader.component";
+
 const subjects = [
   "التفسير القرآني",
   "السيرة النبوية",
@@ -17,33 +18,31 @@ const subjects = [
   "التربية والتعليم",
   "الأدب والشعر واللغة",
 ];
-export type TBlog = {
-
-    createdAt: string;
-    activity: {
-      total_likes: number;
-      total_comments: number;
-      total_reads: number;
-      total_parent_comments: number;
-    };
+export type blog = {
+  createdAt: string;
+  activity: {
+    total_likes: number;
+    total_comments: number;
+    total_reads: number;
+    total_parent_comments: number;
+  };
+  _id: string;
+  title: string;
+  banner: string;
+  description: string;
+  tags: string[];
+  author: {
     _id: string;
-    title: string;
-    banner: string;
-    description: string;
-    tags: string[];
-    author: {
-      _id: string;
-      name: string;
-    };
-    blog_id: string;
-  
+    name: string;
+  };
+  blog_id: string;
 };
-export type TrendyBlog = Omit<TBlog, "banner" & "activity">;
+export type TrendyBlog = Omit<blog, "banner" & "activity">;
 
 const HomePage = () => {
-  const [blog, setblog] = useState<TBlog[] | null>([]);
+  const [blog, setblog] = useState<blog[] | null>([]);
   const [trendingsblog, settrendsblog] = useState<TrendyBlog[] | null>([]);
-  const [HomePage , setHomePage] = useState<string>('home');
+  const [HomePage, setHomePage] = useState<string>("home");
   const FetchLatestBlog = () => {
     axios
       .get(import.meta.env.VITE_SERVER_DOMAIN + "/latest-blogs", {
@@ -65,32 +64,32 @@ const HomePage = () => {
   useEffect(() => {
     ActiveTab.current?.click();
 
-    if(HomePage === 'home'){
-          FetchLatestBlog();
+    if (HomePage === "home") {
+      FetchLatestBlog();
     }
-    if(trendingsblog){
-      
+    if (trendingsblog) {
       FetchTrendyBlogs();
     }
   }, [HomePage]);
 
-  const handelclicksubjects = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{  
-    setblog(null)
-    if(e.target instanceof HTMLButtonElement ){
-          const categorie = e.target.innerText;
-          console.log(categorie);
-          if(categorie === HomePage){
-            setHomePage("home")
-            return;
-          }
-            setHomePage(categorie);
+  const handelclicksubjects = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    setblog(null);
+    if (e.target instanceof HTMLButtonElement) {
+      const categorie = e.target.innerText;
+      console.log(categorie);
+      if (categorie === HomePage) {
+        setHomePage("home");
+        return;
+      }
+      setHomePage(categorie);
 
-          
-          ActiveTab.current?.click();
+      ActiveTab.current?.click();
 
-          console.log(HomePage);
+      console.log(HomePage);
     }
-  }
+  };
   return (
     <AnimationWrapper>
       <section className=" h-cover flex justify-center gap-10">
@@ -100,18 +99,20 @@ const HomePage = () => {
             routes={["home", "trending blogs"]}
           >
             <>
-              {blog === null
-                ? <Loader/>
-                : blog.map((blog, i: number) => {
-                    return (
-                      <AnimationWrapper
-                        key={i}
-                        transition={{ duration: 1, delay: i * 0.1 }}
-                      >
-                        <BlogCard blog={blog} key={i} />
-                      </AnimationWrapper>
-                    );
-                  })}
+              {blog === null ? (
+                <Loader />
+              ) : (
+                blog.map((blog, i: number) => {
+                  return (
+                    <AnimationWrapper
+                      key={i}
+                      transition={{ duration: 1, delay: i * 0.1 }}
+                    >
+                      <BlogCard blog={blog} key={i} />
+                    </AnimationWrapper>
+                  );
+                })
+              )}
             </>
             {trendingsblog === null
               ? "waiting for data"
@@ -136,10 +137,13 @@ const HomePage = () => {
               {subjects.map((sub: string, i) => {
                 return (
                   <button
-
                     onClick={handelclicksubjects}
                     key={i}
-                    className={" tag m-1  " + (HomePage === sub ? " bg-black text-white": " ")}                  >
+                    className={
+                      " tag m-1  " +
+                      (HomePage === sub ? " bg-black text-white" : " ")
+                    }
+                  >
                     {sub}
                   </button>
                 );
@@ -165,26 +169,25 @@ const HomePage = () => {
                 </svg>
               </h1>
 
-              {trendingsblog === null
-                ? <Loader/>
-                : trendingsblog.map((trends, i: number) => {
-                    return (
-                      <AnimationWrapper
-                        key={i}
-                        transition={{ duration: 1, delay: i * 0.1 }}
-                      >
-                        <Minimalblog trends={trends} index={i} key={i} />
-                      </AnimationWrapper>
-                    );
-                  })}
+              {trendingsblog === null ? (
+                <Loader />
+              ) : (
+                trendingsblog.map((trends, i: number) => {
+                  return (
+                    <AnimationWrapper
+                      key={i}
+                      transition={{ duration: 1, delay: i * 0.1 }}
+                    >
+                      <Minimalblog trends={trends} index={i} key={i} />
+                    </AnimationWrapper>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
-        
-        <div>
-          
-          
-          {/* Filter blogs */}</div>
+
+        <div>{/* Filter blogs */}</div>
       </section>
     </AnimationWrapper>
   );
