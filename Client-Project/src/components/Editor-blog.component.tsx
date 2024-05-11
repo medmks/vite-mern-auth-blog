@@ -62,7 +62,7 @@ const BlogEditor = () => {
     });
     // }
   };
-  //TODO: resizing the height while typing in textarea
+  //1. NOTE: resizing the height while typing in textarea
   const HandelchangeTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const input = e.target;
     input.style.height = "auto";

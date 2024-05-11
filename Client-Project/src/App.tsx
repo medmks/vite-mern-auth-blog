@@ -15,7 +15,7 @@ function App() {
             <Route path="editor" element={<Editor />} />
 
             <Route path="/" element={<Navbar />}>
-              <Route index element={<HomePage/>} />
+              <Route index element={<HomePage />} />
               <Route path="signin" element={<UserAuthform types="sign-in" />} />
               <Route path="signup" element={<UserAuthform types="sign-Up" />} />
             </Route>
