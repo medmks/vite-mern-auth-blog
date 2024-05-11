@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Getthedate } from "../common/date";
 
-const Minimalblog = ({ trends, index }: { trends; index: number }) => {
+const Minimalblog = ({ trends, index }: { trends, index: number }) => {
+
   return (
     <Link to={"/"} className="flex gap-5 mb-5 ">
       <h1 className="blog-index">{index < 10 ? "0" + (index + 1) : index}</h1>

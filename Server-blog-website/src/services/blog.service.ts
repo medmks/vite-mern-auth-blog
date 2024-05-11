@@ -33,6 +33,7 @@ export async function GetLatestblogs(){
     }
 }
 
+
 export async function Tendy_blogs(){
     try{
 
@@ -43,6 +44,7 @@ export async function Tendy_blogs(){
           .limit(5)
        
           return Trends
+
     }
     catch(error){
                       throw new Error ("Unxpected Error" + error.message)

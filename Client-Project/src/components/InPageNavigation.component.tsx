@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+
 type Troutes = {
   routes: string[];
   defaultIndex?: number;
@@ -18,10 +19,12 @@ const InPageNavigation = ({
   Activelineref = useRef<HTMLHRElement>(null);
   ActiveTab = useRef<HTMLButtonElement>(null);
 
+
   const Changepagestate = (btn: EventTarget, index: number) => {
     if (btn instanceof HTMLButtonElement && Activelineref.current) {
       Activelineref.current.style.width = btn.offsetWidth + "px";
       Activelineref.current.style.left = btn.offsetLeft + "px";
+
       console.log("offset left" + btn.offsetLeft + "px");
       console.log("offset width" + btn.offsetWidth + "px");
     }
@@ -32,6 +35,7 @@ const InPageNavigation = ({
       Changepagestate(ActiveTab.current, defaultIndex);
     }
   }, [defaultIndex]);
+
   return (
     <>
       <div className="relative mb-8 bg-white border-b border-grey flex flex-nowrap  overflow-x-auto">

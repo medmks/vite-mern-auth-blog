@@ -64,6 +64,7 @@ const HomePage = () => {
   useEffect(() => {
     ActiveTab.current?.click();
 
+
     if (HomePage === "home") {
       FetchLatestBlog();
     }
@@ -99,6 +100,7 @@ const HomePage = () => {
             routes={["home", "trending blogs"]}
           >
             <>
+
               {blog === null ? (
                 <Loader />
               ) : (
@@ -188,6 +190,7 @@ const HomePage = () => {
         </div>
 
         <div>{/* Filter blogs */}</div>
+
       </section>
     </AnimationWrapper>
   );
