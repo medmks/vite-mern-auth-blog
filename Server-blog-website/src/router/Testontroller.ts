@@ -10,5 +10,4 @@ export default (router: express.Router) => {
       return res.status(400).send(error)
     }
   })
-
 }

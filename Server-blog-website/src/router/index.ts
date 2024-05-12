@@ -1,7 +1,7 @@
 import express from 'express'
 import Register from './Sign-in'
 import Testontroller from './Testontroller'
-import blog from "./blog.router"
+import blog from './blog.router'
 
 const router = express.Router()
 

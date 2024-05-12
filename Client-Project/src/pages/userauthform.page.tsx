@@ -73,6 +73,9 @@ const UserAuthform = ({ types }: UserAuthformProp) => {
     FormData,
   }: userAuthThoughServerProp) => {
     try {
+      console.log('====================================');
+      console.log(FormData);
+      console.log('====================================');
       const response: AxiosResponse = await axios.post(
         import.meta.env.VITE_SERVER_DOMAIN + `${ServerRoute}`,
         FormData,

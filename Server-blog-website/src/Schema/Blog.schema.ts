@@ -1,39 +1,38 @@
-import { TypeOf, object} from "zod";
-import { string } from "zod";
-import { number } from "zod";
-import { array } from "zod";
+import { TypeOf, object } from 'zod'
+import { string } from 'zod'
+import { number } from 'zod'
+import { array } from 'zod'
 
 const payload = {
-          body :object({
-             title : string({required_error:"Title is required"}),
-             banner:string({required_error:"image is required"}),
-             description:string({required_error:"description is required"}).min(20,"max 20 letter"),
-       
-          })
+  body: object({
+    title: string({ required_error: 'Title is required' }),
+    banner: string({ required_error: 'image is required' }),
+    description: string({ required_error: 'description is required' }).min(20, 'max 20 letter'),
+  }),
 }
-const params= {
-          params :object({
-                    blogId:string({
-                              required_error:"Post Id is required"
-                    })
-          })
+const params = {
+  params: object({
+    blogId: string({
+      required_error: 'Post Id is required',
+    }),
+  }),
 }
 
 export const CreateblogSchema = object({
-          ...payload
+  ...payload,
 })
 
 export const deleteblogSchema = object({
-          ...params
+  ...params,
 })
 
 export const updateblogSchema = object({
-          ...payload,
-          ...payload
+  ...payload,
+  ...payload,
 })
 
 export const GetblogSchema = object({
-          ...params
+  ...params,
 })
 
 export type createbloginput = TypeOf<typeof CreateblogSchema>

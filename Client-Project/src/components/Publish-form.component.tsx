@@ -62,6 +62,7 @@ const Publishform = () => {
       toast.error("make sure that all fields filled in ");
     }
     const WrittenBlog = { title, content, banner, description, author, tags };
+console.log("WrittenBlog" ,userAuth );
 
     const loading = toast.loading("loading..");
     if (e.target instanceof HTMLButtonElement) {

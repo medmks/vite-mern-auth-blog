@@ -1,16 +1,14 @@
 import express, { Express } from 'express'
 import config from 'config'
 import ConnectToDb from './utils/connect'
-import router from './router';
-import cors from "cors";
-import  deserializeUser  from './Middlewares/deserialize';
+import router from './router'
+import cors from 'cors'
+import deserializeUser from './Middlewares/deserialize'
 
 const server: Express = express()
 
-
-
 server.use(express.json())
-// server.use(deserializeUser)
+server.use(deserializeUser)
 server.use(cors())
 server.use('/', router())
 

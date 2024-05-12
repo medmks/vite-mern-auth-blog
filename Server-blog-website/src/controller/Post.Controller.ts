@@ -1,43 +1,38 @@
-import  express,{Request,Response}  from "express";
-import { CreatePost, DeletePost, FindPost, FindandUpdatePost } from "../services/Post.service";
-import { CreatePostInput, DeletePostInput, GetPostInput, UpdatePostInput } from "../Schema/Post.schema";
+import express, { Request, Response } from 'express'
+import { CreatePost, DeletePost, FindPost, FindandUpdatePost } from '../services/Post.service'
+import { CreatePostInput, DeletePostInput, GetPostInput, UpdatePostInput } from '../Schema/Post.schema'
 
-export async function CreatePostHandler(req:Request<{},{},CreatePostInput['body']>,res:Response) {
-          try{
-                    const user_id = res.locals.user._id
-                    const body = req.body
-                    const Post = await CreatePost({...body, user:user_id})                     // TODO Create Service Post
+export async function CreatePostHandler(req: Request<{}, {}, CreatePostInput['body']>, res: Response) {
+  try {
+    const user_id = res.locals.user._id
+    const body = req.body
+    const Post = await CreatePost({ ...body, user: user_id }) // TODO Create Service Post
 
-                    return res.status(200).send(Post)
-          }catch (error){
-                    return res.status(409).send(error.message)
-          }
+    return res.status(200).send(Post)
+  } catch (error) {
+    return res.status(409).send(error.message)
+  }
 }
 
-        //BUG: bug here ⬇ 
+//BUG: bug here ⬇
 
-export async function FindPostHandler(req:Request<GetPostInput["params"]>,res:Response) {
-          try{  
-                    const postid = req.params.postid;
+export async function FindPostHandler(req: Request<GetPostInput['params']>, res: Response) {
+  try {
+    const postid = req.params.postid
 
-                        console.log(postid);
-                        
-                    const post= await FindPost({postid})
+    console.log(postid)
 
+    const post = await FindPost({ postid })
 
-                    if(!post)
-                    { return res.sendStatus(404)
-                }
+    if (!post) {
+      return res.sendStatus(404)
+    }
 
-                   return res.send(post)
-
-
-          }
-          catch (error){
-                    return res.status(409).send(error.message)
-          }
+    return res.send(post)
+  } catch (error) {
+    return res.status(409).send(error.message)
+  }
 }
-
 
 // export async function findandUpdatePostHandler(req:Request<UpdatePostInput["params"]>,res:Response) {
 //           try{
@@ -58,19 +53,16 @@ export async function FindPostHandler(req:Request<GetPostInput["params"]>,res:Re
 //                    const updatpost =  await FindandUpdatePost({Post_id},update,{new:true})
 //                    return res.send(updatpost)
 
-
 //           }catch (error){
 //                     return res.status(409).send(error.message)
 //           }
 // }
-
 
 // export async function DeletPostHandler(req:Request<DeletePostInput["params"]>,res:Response) {
 //           try{
 //                     const user_id = res.locals.user._id;
 
 //                     const Post_id = req.params.postid;
-
 
 //                     const post = await FindPost({Post_id})
 
@@ -83,10 +75,7 @@ export async function FindPostHandler(req:Request<GetPostInput["params"]>,res:Re
 //                    await DeletePost({Post_id})
 //                    return res.send(200)
 
-
 //           }catch (error){
 //                     return res.status(409).send(error.message)
 //           }
 // }
-
-

@@ -1,33 +1,32 @@
-import { TypeOf, object, string } from "zod";
+import { TypeOf, object, string } from 'zod'
 
 const payload = {
-          body:object({
-          title:string({required_error:"title is required"}),
-          description:string({required_error:"description is required"}).min(120,"Description Should at least 120"),
-          image:string({required_error:"Image is required"}),
-          
-})
-};
+  body: object({
+    title: string({ required_error: 'title is required' }),
+    description: string({ required_error: 'description is required' }).min(120, 'Description Should at least 120'),
+    image: string({ required_error: 'Image is required' }),
+  }),
+}
 
 const params = {
-          params :object({
-                    postid:string({
-                              required_error:"Post Id is required"
-                    })
-          })
+  params: object({
+    postid: string({
+      required_error: 'Post Id is required',
+    }),
+  }),
 }
 export const CreatePostSchema = object({
-          ...payload
+  ...payload,
 })
 export const UpdatePostSchema = object({
-          ...payload,
-          ...params
+  ...payload,
+  ...params,
 })
 export const DeletePostSchema = object({
-          ...params
+  ...params,
 })
 export const GetPostSchema = object({
-          ...params
+  ...params,
 })
 export type CreatePostInput = TypeOf<typeof CreatePostSchema>
 

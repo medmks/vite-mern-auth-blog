@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import BlogCard from "../components/BlogCard.component";
 import Minimalblog from "../components/minimalblog.component";
 import { ActiveTab } from "../components/InPageNavigation.component";
-import Loader from "../components/loader.component";
+import NoDataMessage from "../components/noDataMessage.component";
+import Loader from "../components/Loader.component";
 
 const subjects = [
   "التفسير القرآني",
@@ -61,6 +62,13 @@ const HomePage = () => {
         settrendsblog(data);
       });
   };
+  const SearchForBlogs = () => {
+    axios
+    .post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blog", {tag:HomePage})
+    .then(({ data }) => {
+      setblog(data);
+    });
+  }  
   useEffect(() => {
     ActiveTab.current?.click();
 
@@ -84,7 +92,11 @@ const HomePage = () => {
         setHomePage("home");
         return;
       }
-      setHomePage(categorie);
+else{
+  setHomePage(categorie);
+
+  SearchForBlogs()
+}
 
       ActiveTab.current?.click();
 
@@ -103,7 +115,9 @@ const HomePage = () => {
 
               {blog === null ? (
                 <Loader />
-              ) : (
+              ) :
+              blog.length > 0 ?
+              (
                 blog.map((blog, i: number) => {
                   return (
                     <AnimationWrapper
@@ -114,7 +128,9 @@ const HomePage = () => {
                     </AnimationWrapper>
                   );
                 })
-              )}
+              )
+            :<NoDataMessage/>
+            }
             </>
             {trendingsblog === null
               ? "waiting for data"

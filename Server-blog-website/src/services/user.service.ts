@@ -28,6 +28,6 @@ export async function ValidatePassword({ email, password }: { email: String; pas
   return omit(user.toJSON(), 'password')
 }
 
-export async function findUser(query:FilterQuery<UserDoc>){
-return UserModal.findOne(query).lean()
+export async function findUser(query: FilterQuery<UserDoc>) {
+  return UserModal.findOne(query).lean()
 }

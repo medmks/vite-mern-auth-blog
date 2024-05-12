@@ -37,16 +37,15 @@ export async function createSessionHandler(req: Request, res: Response) {
 export async function getUserSessionHandeler(req: Request, res: Response) {
   const userId = res.locals.user._id
 
-  const sessions = await findSessions({user:userId, valid:true})
+  const sessions = await findSessions({ user: userId, valid: true })
   return res.send(sessions)
-  
 }
 
-export async function DeleteSessoinHandeler(req: Request, res: Response){
-const sessionId = res.locals.user.session
-await UpdateSession({_id:sessionId},{valid:false})
-return res.send({
-  accessToken:null,
-  refreshToken:null
-})
+export async function DeleteSessoinHandeler(req: Request, res: Response) {
+  const sessionId = res.locals.user.session
+  await UpdateSession({ _id: sessionId }, { valid: false })
+  return res.send({
+    accessToken: null,
+    refreshToken: null,
+  })
 }

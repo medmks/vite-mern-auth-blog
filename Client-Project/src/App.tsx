@@ -13,7 +13,6 @@ function App() {
         <EditorContextProvider>
           <Routes>
             <Route path="editor" element={<Editor />} />
-
             <Route path="/" element={<Navbar />}>
               <Route index element={<HomePage />} />
               <Route path="signin" element={<UserAuthform types="sign-in" />} />

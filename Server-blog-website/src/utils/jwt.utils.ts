@@ -9,7 +9,7 @@ export function SignJwt(object: Object, options?: jwt.SignOptions | undefined) {
     ...(options && options),
     algorithm: 'RS256',
   })
-} 
+}
 export function verifyJwt(token: string) {
   try {
     const decoded = jwt.verify(token, PublicKey)

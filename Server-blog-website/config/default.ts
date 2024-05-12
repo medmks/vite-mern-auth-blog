@@ -2,7 +2,7 @@ export default {
   port: 1337,
   Db_name_Url: 'mongodb://127.0.0.1:27017/Blog-Db-Mern',
   saltworkFactor: 10,
-privateKey:`-----BEGIN RSA PRIVATE KEY-----
+  privateKey: `-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAl+hlmTZaIhJdY/raW8uBflYCMj7G4eQ3CggXCgwK4QSK452K
 OpHz918TcOURZ1o1tHeixaqZ5Wk9gvc4PKYLRx33ic2z7RAAPPnUdkNvKY2zjCQN
 gynohazCWWxOiJYof7zx/fj4CZSAkQ1DMAmPV4TMAmSxieoR7tmXyWFHI98jPimv
@@ -31,7 +31,7 @@ jjO6K9wxxUq0FDlhK6X0rMQBGJ9wdCXQPzG+kQRZgILmmWkOKor+
 -----END RSA PRIVATE KEY-----
 `,
 
-publicKey:`-----BEGIN PUBLIC KEY-----
+  publicKey: `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl+hlmTZaIhJdY/raW8uB
 flYCMj7G4eQ3CggXCgwK4QSK452KOpHz918TcOURZ1o1tHeixaqZ5Wk9gvc4PKYL
 Rx33ic2z7RAAPPnUdkNvKY2zjCQNgynohazCWWxOiJYof7zx/fj4CZSAkQ1DMAmP
