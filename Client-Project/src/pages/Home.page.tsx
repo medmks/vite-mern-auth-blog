@@ -7,7 +7,9 @@ import Minimalblog from "../components/minimalblog.component";
 import { ActiveTab } from "../components/InPageNavigation.component";
 import NoDataMessage from "../components/noDataMessage.component";
 import Loader from "../components/Loader.component";
-
+import FilterPagination from "../components/fitter_pagination";
+import LoadMoreBlogs from "../components/LoadMoreBlogs.component";
+import { SetStateAction } from "react";
 const subjects = [
   "التفسير القرآني",
   "السيرة النبوية",
@@ -39,34 +41,66 @@ export type blog = {
   blog_id: string;
 };
 export type TrendyBlog = Omit<blog, "banner" & "activity">;
-
+export type TBlog = {
+  results : blog[],
+  page:number,
+  totalDocs:number
+}
 const HomePage = () => {
-  const [blog, setblog] = useState<blog[] | null>([]);
+  const [blog, setblog] = useState<TBlog | null>(null);
   const [trendingsblog, settrendsblog] = useState<TrendyBlog[] | null>([]);
   const [HomePage, setHomePage] = useState<string>("home");
-  const FetchLatestBlog = () => {
+  const FetchLatestBlog = ({page = 1}) => {
     axios
-      .get(import.meta.env.VITE_SERVER_DOMAIN + "/latest-blogs", {
-        headers: {},
+      .post(import.meta.env.VITE_SERVER_DOMAIN + "/latest-blogs", {
+        page
       })
-      .then(({ data }) => {
-        setblog(data);
+      .then(async ({ data }) => {
+          const formData  = await FilterPagination({
+            countRoute:"/all_latest",
+            data:data,
+            state:blog,
+            new_Array:false,
+            page,
+            date_to_send:{},
+          })
+          setblog(formData as SetStateAction<TBlog | null>);     
+          
+          
       });
   };
   const FetchTrendyBlogs = () => {
     axios
-      .get(import.meta.env.VITE_SERVER_DOMAIN + "/trendy-blogs", {
+      .get(import.meta.env.VITE_SERVER_DOMAIN + `/trendy-blogs/`, {
         headers: {},
+
       })
       .then(({ data }) => {
         settrendsblog(data);
       });
   };
-  const SearchForBlogs = () => {
+  const SearchForBlogs = ({page = 1}) => {
     axios
-    .post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blog", {tag:HomePage})
-    .then(({ data }) => {
-      setblog(data);
+    .post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blog", {tag:HomePage,page})
+    
+    .then(async ({ data }) => {
+      console.log('====================================');
+      console.log(data);
+      console.log('Tag==',HomePage);
+    
+      const formData = await FilterPagination({
+        countRoute: "/search-count-docs",
+        data: data,
+        state: blog,
+        new_Array: false,
+        page,
+        date_to_send: {tag:HomePage}, // Add this line
+
+      });
+      setblog(formData as SetStateAction<TBlog | null>);
+      // console.log('====formData==');
+      console.log(formData);
+      
     });
   }  
   useEffect(() => {
@@ -74,35 +108,27 @@ const HomePage = () => {
 
 
     if (HomePage === "home") {
-      FetchLatestBlog();
+      FetchLatestBlog({page:1});
     }
     if (trendingsblog) {
       FetchTrendyBlogs();
     }
   }, [HomePage]);
 
-  const handelclicksubjects = (
+  const handleSubjectClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    setblog(null);
-    if (e.target instanceof HTMLButtonElement) {
-      const categorie = e.target.innerText;
-      console.log(categorie);
-      if (categorie === HomePage) {
-        setHomePage("home");
-        return;
-      }
-else{
-  setHomePage(categorie);
+      setblog(null);
+      const categorie = (e.target as HTMLButtonElement).innerText;
+      // console.log(categorie);
+        setHomePage(categorie === HomePage ? "home" : categorie);
+        SearchForBlogs({page:1});
+        // ActiveTab.current?.click();
 
-  SearchForBlogs()
-}
-
-      ActiveTab.current?.click();
-
-      console.log(HomePage);
-    }
+  
   };
+  // Activelineref
+  // ActiveTab
   return (
     <AnimationWrapper>
       <section className=" h-cover flex justify-center gap-10">
@@ -116,9 +142,9 @@ else{
               {blog === null ? (
                 <Loader />
               ) :
-              blog.length > 0 ?
+              blog.results.length > 0 ?
               (
-                blog.map((blog, i: number) => {
+                blog.results.map((blog, i: number) => {
                   return (
                     <AnimationWrapper
                       key={i}
@@ -131,7 +157,7 @@ else{
               )
             :<NoDataMessage/>
             }
-            </>
+            <LoadMoreBlogs state={blog || { results: [], page: 0, totalDocs: 0 }} fetchDataFun={FetchLatestBlog}/>            </>
             {trendingsblog === null
               ? "waiting for data"
               : trendingsblog.map((trends, i: number) => {
@@ -140,7 +166,7 @@ else{
                       key={i}
                       transition={{ duration: 1, delay: i * 0.1 }}
                     >
-                      <Minimalblog trends={trends} index={i} key={i} />
+                      <Minimalblog blog={trends} index={i} key={i} />
                     </AnimationWrapper>
                   );
                 })}
@@ -155,7 +181,7 @@ else{
               {subjects.map((sub: string, i) => {
                 return (
                   <button
-                    onClick={handelclicksubjects}
+                    onClick={handleSubjectClick}
                     key={i}
                     className={
                       " tag m-1  " +
@@ -196,10 +222,10 @@ else{
                       key={i}
                       transition={{ duration: 1, delay: i * 0.1 }}
                     >
-                      <Minimalblog trends={trends} index={i} key={i} />
+                      <Minimalblog blog={trends} index={i} key={i} />
                     </AnimationWrapper>
                   );
-                })
+                })  
               )}
             </div>
           </div>
