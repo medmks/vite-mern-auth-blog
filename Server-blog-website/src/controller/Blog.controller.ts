@@ -1,6 +1,6 @@
 import { createbloginput } from '../Schema/Blog.schema'
 
-import { GetLatestblogs, createNewBlog, Tendy_blogs, SearchBlogService } from '../services/blog.service'
+import { GetLatestblogs, createNewBlog, Tendy_blogs, SearchBlogService,getDocsCount,getSearchCount } from '../services/blog.service'
 
 import { Request, Response } from 'express'
 
@@ -17,7 +17,8 @@ export async function createBlogHandler(req: Request<{}, {}, createbloginput['bo
 
 export async function GetltestBloghandler(req: Request, res: Response) {
   try {
-    const blogs = await GetLatestblogs()
+    const {page} = req.body;
+    const blogs = await GetLatestblogs(page)
     return res.status(200).send(blogs)
   } catch (error) {
     return res.status(409).send(error.message)
@@ -34,9 +35,9 @@ export async function GetTrendyBlogs(req: Request, res: Response) {
   }
 }
 export async function SearchBlogController(req: Request, res: Response) {
-  const { tag } = req.body
+  const { tag,page } = req.body
   try {
-    const Foundedblogs = await SearchBlogService(tag)
+    const Foundedblogs = await SearchBlogService(tag,page)
     console.log(Foundedblogs)
 
     return res.status(200).send(Foundedblogs)
@@ -44,3 +45,35 @@ export async function SearchBlogController(req: Request, res: Response) {
     return res.status(409).send(error.message)
   }
 }
+export async function getTotalDocs(req: Request, res: Response) {
+  try {
+    const totalDocs = await getDocsCount()
+    .then( count => {
+      console.log(count);
+      
+      return res.status(200).json({totalDocs:count})
+    })
+  
+  } catch (error) {
+    return res.status(500).json({ error: error.message })
+
+  } 
+  }
+  
+export async function getSearchTotalDocs(req: Request, res: Response) {
+  try {
+    const {tag} = req.body
+    console.log(tag)
+    const totalDocs = await getSearchCount(tag)
+    .then( count => {
+      console.log(count);
+      
+      return res.status(200).json({totalDocs:count})
+    })
+  
+  } catch (error) {
+    return res.status(500).json({ error: error.message })
+
+  } 
+  }
+  
