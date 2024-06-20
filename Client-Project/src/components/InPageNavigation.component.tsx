@@ -19,7 +19,6 @@ const InPageNavigation = ({
   Activelineref = useRef<HTMLHRElement>(null);
   ActiveTab = useRef<HTMLButtonElement>(null);
 
-
   const Changepagestate = (btn: EventTarget, index: number) => {
     if (btn instanceof HTMLButtonElement && Activelineref.current) {
       Activelineref.current.style.width = btn.offsetWidth + "px";

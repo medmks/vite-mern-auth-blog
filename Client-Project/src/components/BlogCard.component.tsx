@@ -1,13 +1,15 @@
-
 import type { blog } from "../pages/Home.page";
 import { Getthedate } from "../common/date";
 import { Link } from "react-router-dom";
-const BlogCard = ({ blog }: blog) => {
+const BlogCard: React.FC<{ blog: blog }> = (props: {
+  blog: blog;
+}): JSX.Element => {
+  const { blog } = props;
+
   return (
     <Link
       className="flex items-center  gap-8 border-b border-grey pb-4 mb-4"
       to={"/"}
-
     >
       <div className=" w-full">
         <div className="flex gap-2 items-center mb-7 ">
@@ -17,7 +19,6 @@ const BlogCard = ({ blog }: blog) => {
             alt=""
           />
           <p className="line-clamp-1 ">
-
             {blog.author.name} @{blog.author.name}
           </p>
           <p className="min-w-fit">{Getthedate(blog.createdAt)}</p>
@@ -49,9 +50,7 @@ const BlogCard = ({ blog }: blog) => {
       </div>
       <div className=" h-28 aspect-square bg-white">
         <img
-
           src={blog.banner}
-
           alt=""
           className="h-full w-full  aspect-square object-cover"
         />

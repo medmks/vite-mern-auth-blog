@@ -3,6 +3,7 @@ import { logo } from "../assets";
 import { useState } from "react";
 import { UseUserAuthContext } from "../Hooks/UserContext";
 import Usernavigation from "./User-navigating.component";
+
 const Navbar = () => {
   const [ToggleSearch, setToggleSearch] = useState(false);
   const [UserNavPanel, setUserNavPanel] = useState(false);
