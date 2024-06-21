@@ -13,8 +13,7 @@ export async function createNewBlog(inputs: BLogInput) {
   }
 }
 
-export async function GetLatestblogs(page:number) {
-
+export async function GetLatestblogs(page: number) {
   try {
     const maxLimit = 5
     const blogs = await Blogmodel.find({ draft: false })
@@ -43,9 +42,8 @@ export async function Tendy_blogs() {
     throw new Error('Unxpected Error' + error.message)
   }
 }
-export async function SearchBlogService(Tag: string,page:number) {
+export async function SearchBlogService(Tag: string, page: number) {
   try {
-
     let findQuey = { tags: Tag, draft: false }
     const limit = 2 //limit
 
@@ -62,7 +60,7 @@ export async function SearchBlogService(Tag: string,page:number) {
 }
 export async function getDocsCount() {
   try {
-    const CountDocs = await Blogmodel.countDocuments({draft:false})
+    const CountDocs = await Blogmodel.countDocuments({ draft: false })
     return CountDocs
   } catch (error) {
     throw new Error('Unxpected Error' + error.message)
@@ -73,6 +71,22 @@ export async function getSearchCount(Tag: string) {
     let findQuey = { tags: Tag, draft: false }
     const CountDocs = await Blogmodel.countDocuments(findQuey)
     return CountDocs
+  } catch (error) {
+    throw new Error('Unxpected Error' + error.message)
+  }
+}
+export async function SearchQueryService(query: string, page: number) {
+  try {
+    let findQuey = { title: new RegExp(query, 'i'), draft: false }
+    const limit = 2 //limit
+
+    const SearchingBlogs = await Blogmodel.find(findQuey)
+      .populate('author', 'name')
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .select('blog_id tags createdAt description title activity banner -_id ')
+      .limit(limit)
+    return SearchingBlogs
   } catch (error) {
     throw new Error('Unxpected Error' + error.message)
   }

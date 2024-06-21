@@ -5,6 +5,7 @@ import Editor from "./pages/Editor.page";
 import UseAuthProvider from "./Hooks/UserContext";
 import EditorContextProvider from "./Hooks/UseEditorContext";
 import HomePage from "./pages/Home.page";
+import SeachPage from "./pages/Search.page";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route index element={<HomePage />} />
               <Route path="signin" element={<UserAuthform types="sign-in" />} />
               <Route path="signup" element={<UserAuthform types="sign-Up" />} />
+              <Route path="search/:query" element={<SeachPage />} />
             </Route>
           </Routes>
         </EditorContextProvider>
