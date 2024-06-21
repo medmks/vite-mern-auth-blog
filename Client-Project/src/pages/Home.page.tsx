@@ -6,7 +6,7 @@ import BlogCard from "../components/BlogCard.component";
 import Minimalblog from "../components/minimalblog.component";
 import { ActiveTab } from "../components/InPageNavigation.component";
 import NoDataMessage from "../components/noDataMessage.component";
-import Loader from "../components/Loader.component";
+import Loader from "../components/loader.component";
 import FilterPagination from "../components/fitter_pagination";
 import LoadMoreBlogs from "../components/LoadMoreBlogs.component";
 import { SetStateAction } from "react";
@@ -42,73 +42,68 @@ export type blog = {
 };
 export type TrendyBlog = Omit<blog, "banner" & "activity">;
 export type TBlog = {
-  results : blog[],
-  page:number,
-  totalDocs:number
-}
+  results: blog[];
+  page: number;
+  totalDocs: number;
+};
 const HomePage = () => {
   const [blog, setblog] = useState<TBlog | null>(null);
   const [trendingsblog, settrendsblog] = useState<TrendyBlog[] | null>([]);
   const [HomePage, setHomePage] = useState<string>("home");
-  const FetchLatestBlog = ({page = 1}) => {
+  const FetchLatestBlog = ({ page = 1 }) => {
     axios
       .post(import.meta.env.VITE_SERVER_DOMAIN + "/latest-blogs", {
-        page
+        page,
       })
       .then(async ({ data }) => {
-          const formData  = await FilterPagination({
-            countRoute:"/all_latest",
-            data:data,
-            state:blog,
-            new_Array:false,
-            page,
-            date_to_send:{},
-          })
-          setblog(formData as SetStateAction<TBlog | null>);     
-          
-          
+        const formData = await FilterPagination({
+          countRoute: "/all_latest",
+          data: data,
+          state: blog,
+          new_Array: false,
+          page,
+          date_to_send: {},
+        });
+        setblog(formData as SetStateAction<TBlog | null>);
       });
   };
   const FetchTrendyBlogs = () => {
     axios
       .get(import.meta.env.VITE_SERVER_DOMAIN + `/trendy-blogs/`, {
         headers: {},
-
       })
       .then(({ data }) => {
         settrendsblog(data);
       });
   };
-  const SearchForBlogs = ({page = 1}) => {
+  const SearchForBlogs = ({ page = 1 }) => {
     axios
-    .post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blog", {tag:HomePage,page})
-    
-    .then(async ({ data }) => {
-      console.log('====================================');
-      console.log(data);
-      console.log('Tag==',HomePage);
-    
-      const formData = await FilterPagination({
-        countRoute: "/search-count-docs",
-        data: data,
-        state: blog,
-        new_Array: false,
+      .post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blog", {
+        tag: HomePage,
         page,
-        date_to_send: {tag:HomePage}, // Add this line
+      })
 
+      .then(async ({ data }) => {
+
+
+        const formData = await FilterPagination({
+          countRoute: "/search-count-docs",
+          data: data,
+          state: blog,
+          new_Array: false,
+          page,
+          date_to_send: { tag: HomePage }, // Add this line
+        });
+        setblog(formData as SetStateAction<TBlog | null>);
+        // console.log('====formData==');
+        console.log(formData);
       });
-      setblog(formData as SetStateAction<TBlog | null>);
-      // console.log('====formData==');
-      console.log(formData);
-      
-    });
-  }  
+  };
   useEffect(() => {
     ActiveTab.current?.click();
 
-
     if (HomePage === "home") {
-      FetchLatestBlog({page:1});
+      FetchLatestBlog({ page: 1 });
     }
     if (trendingsblog) {
       FetchTrendyBlogs();
@@ -118,14 +113,12 @@ const HomePage = () => {
   const handleSubjectClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-      setblog(null);
-      const categorie = (e.target as HTMLButtonElement).innerText;
-      // console.log(categorie);
-        setHomePage(categorie === HomePage ? "home" : categorie);
-        SearchForBlogs({page:1});
-        // ActiveTab.current?.click();
-
-  
+    setblog(null);
+    const categorie = (e.target as HTMLButtonElement).innerText;
+    // console.log(categorie);
+    setHomePage(categorie === HomePage ? "home" : categorie);
+    SearchForBlogs({ page: 1 });
+    // ActiveTab.current?.click();
   };
   // Activelineref
   // ActiveTab
@@ -138,12 +131,9 @@ const HomePage = () => {
             routes={["home", "trending blogs"]}
           >
             <>
-
               {blog === null ? (
                 <Loader />
-              ) :
-              blog.results.length > 0 ?
-              (
+              ) : blog.results.length > 0 ? (
                 blog.results.map((blog, i: number) => {
                   return (
                     <AnimationWrapper
@@ -154,10 +144,14 @@ const HomePage = () => {
                     </AnimationWrapper>
                   );
                 })
-              )
-            :<NoDataMessage/>
-            }
-            <LoadMoreBlogs state={blog || { results: [], page: 0, totalDocs: 0 }} fetchDataFun={FetchLatestBlog}/>            </>
+              ) : (
+                <NoDataMessage />
+              )}
+              <LoadMoreBlogs
+                state={blog || { results: [], page: 0, totalDocs: 0 }}
+                fetchDataFun={FetchLatestBlog}
+              />
+            </>
             {trendingsblog === null
               ? "waiting for data"
               : trendingsblog.map((trends, i: number) => {
@@ -225,14 +219,13 @@ const HomePage = () => {
                       <Minimalblog blog={trends} index={i} key={i} />
                     </AnimationWrapper>
                   );
-                })  
+                })
               )}
             </div>
           </div>
         </div>
 
         <div>{/* Filter blogs */}</div>
-
       </section>
     </AnimationWrapper>
   );

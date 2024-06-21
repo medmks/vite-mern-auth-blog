@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, useNavigate, Outlet } from "react-router-dom";
 import { logo } from "../assets";
 import { useState } from "react";
 import { UseUserAuthContext } from "../Hooks/UserContext";
@@ -8,7 +8,17 @@ const Navbar = () => {
   const [ToggleSearch, setToggleSearch] = useState(false);
   const [UserNavPanel, setUserNavPanel] = useState(false);
   const { userAuth } = UseUserAuthContext();
+  const navigate = useNavigate();
 
+  const handelKeyDown = (e: React.KeyboardEvent) => {
+    const Query = e.target as HTMLInputElement;
+    if (e.key === "Enter") {
+      console.log("====================================");
+      console.log(Query.value && Query.value.length);
+      console.log("====================================");
+      navigate(`/search/${Query.value}`);
+    }
+  };
   return (
     <>
       <nav className="navbar">
@@ -111,6 +121,7 @@ const Navbar = () => {
             type="text"
             className="w-full md:w-auto bg-grey p-4 pr-[12%] md:pr-6 rounded-full placeholder:text-dark-grey md:pl-12 "
             placeholder="search"
+            onKeyDown={handelKeyDown}
           />
 
           <svg
