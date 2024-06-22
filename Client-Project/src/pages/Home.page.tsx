@@ -145,7 +145,7 @@ const HomePage = () => {
                   );
                 })
               ) : (
-                <NoDataMessage />
+                <NoDataMessage message={"No Blogs"} />
               )}
               <LoadMoreBlogs
                 state={blog || { results: [], page: 0, totalDocs: 0 }}
