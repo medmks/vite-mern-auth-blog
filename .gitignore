@@ -1,0 +1,7 @@
+/Client-Project/node_modules
+/Server-blog-website/node_modules
+
+/.cache
+/Client-Project/build
+/Server-blog-website/build
+/Client-Project/.env
