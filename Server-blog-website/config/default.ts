@@ -2,44 +2,9 @@ export default {
   port: 1337,
   Db_name_Url: 'mongodb://127.0.0.1:27017/Blog-Db-Mern',
   saltworkFactor: 10,
-  privateKey: `-----BEGIN RSA PRIVATE KEY-----
-MIIEowIBAAKCAQEAl+hlmTZaIhJdY/raW8uBflYCMj7G4eQ3CggXCgwK4QSK452K
-OpHz918TcOURZ1o1tHeixaqZ5Wk9gvc4PKYLRx33ic2z7RAAPPnUdkNvKY2zjCQN
-gynohazCWWxOiJYof7zx/fj4CZSAkQ1DMAmPV4TMAmSxieoR7tmXyWFHI98jPimv
-2YhdUacZGy7aoqJl+gZpF95ulnlE9wJRzX4JLpZmFPFtPtIK7kowVSKx+cbuyjIb
-v755OemLSGpSwegNgHRzGUFKvuryxQ31Ou9etVgjmG7f+Lo7TYWjbEj2fX0zeAhm
-JpdSSe72Swx8Bxo60lsIjNI5ZcOiaHcFQoeFcwIDAQABAoIBAAea4eM+vlpwUu6b
-c20fDheWFLwROoG6nCrLZuPg4HaNdKqai34NKoqa3u1K+okTEhc72hFNTjEXCLZS
-zCT1JyFjVa43dyeKIojq9QEKtTj+WBvO/kIvye1PTdeOPYxHADYM7oyJd1l7bshU
-QqXYBK4b/t6rzduatVUg3aF+VkJsaJ0OV24jB3HBVD3fOzLv8FxjTuP767ja+w03
-PJfkNjx89oz3YTpyDAjjWs//jkJYvoInVH0Geo3TBIemX5tc8PmVQe2tOjzcsw+M
-1kCwgFBqxd1MdPkHlLZCYfaMcUkYkGhklVIUBGx2ndherag1V7HN68lsZYWMqvoK
-vZ60PnECgYEA0kKgOBz+nIoHPjREsgyndOJOB8nbLG0naniQPnt7MfAIeUMmVJ+2
-ur698AqQ785fG9+8JZ+YqLL5xmwZwf7iv7fS4IlFjacjH7ujl38wERH3cyj8QyHZ
-5MfJyTjRG3qtch2ZJcCwKaU+ZV0zjwFLfY+/bypCpuA6Nx5aV9n3fNkCgYEAuPQg
-zFs0gSDTHiTUYk+rQUbfhuPV3u5bJU34Nx+zPs6Srnuov/+uHmktjVo5Qg9k8sIO
-cz/8Bqcdxq5dk1twU+gilgArzwgaOYrJ9k8n20KKuQMztA2HVOV2jH5XLQ0fYSbc
-WlQqOJnXUgrA+FhbqPZUUPNwXdvlSp6imDqd1SsCgYEArk1PNtVKeQivsnBwFk4J
-MAs+9pPu3qhqSYhCw5ln6mD7FVOGXha8y5i+KlUIC9Q/4gKanXHtgsRD7arFu52J
-6bcA2OTTRPeuVWse1cM5XJ1RTiVG4nwYfuDktawlJSuQx44j3DkdkJiM3kjiKgW/
-yAo3f3dAI8i0WecOq89krBkCgYB7J5wbV3Prs+bAQLfnSrN3QPEgid9klYS9n2Bz
-nDknzjef1Zm1V1QizdhWMkjEMyn997fViDqSV38dSAfpUk7GoGE/TpfdQMDtpfv7
-dhPNDU8ACSDJeOSvZCf/PzVfO0i00UKTJ04B6HaXG7AI7hUCuhvE14TwCrdwa5dL
-FGT6hwKBgGN9Fxiv5RnIGpIL00nZEMxzbcrFHCKrXniA63Y7IDVuYQtalpvQXWSn
-IRvFU1MBydCefIkHhl3tM8t6gERcZpd/gQv1ckn/eUAQLCvAoAXLjJusGvJILnOz
-jjO6K9wxxUq0FDlhK6X0rMQBGJ9wdCXQPzG+kQRZgILmmWkOKor+
------END RSA PRIVATE KEY-----
-`,
+  privateKey: ``,
 
-  publicKey: `-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl+hlmTZaIhJdY/raW8uB
-flYCMj7G4eQ3CggXCgwK4QSK452KOpHz918TcOURZ1o1tHeixaqZ5Wk9gvc4PKYL
-Rx33ic2z7RAAPPnUdkNvKY2zjCQNgynohazCWWxOiJYof7zx/fj4CZSAkQ1DMAmP
-V4TMAmSxieoR7tmXyWFHI98jPimv2YhdUacZGy7aoqJl+gZpF95ulnlE9wJRzX4J
-LpZmFPFtPtIK7kowVSKx+cbuyjIbv755OemLSGpSwegNgHRzGUFKvuryxQ31Ou9e
-tVgjmG7f+Lo7TYWjbEj2fX0zeAhmJpdSSe72Swx8Bxo60lsIjNI5ZcOiaHcFQoeF
-cwIDAQAB
------END PUBLIC KEY-----`,
+  publicKey: ``,
 
   accessTokenTtl: '15m',
   refreshTokenttl: '1y',
