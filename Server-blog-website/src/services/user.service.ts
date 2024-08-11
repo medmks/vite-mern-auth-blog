@@ -32,7 +32,7 @@ export async function findUser(query: FilterQuery<UserDoc>) {
   return UserModal.findOne(query).lean()
 }
 export async function getAuthors(query: string) {
-  return UserModal.find({ name : new RegExp(query, 'i')})
-  .limit(50) 
-  .select('name -_id')
+  return UserModal.find({ name: new RegExp(query, 'i') })
+    .limit(50)
+    .select('name -_id')
 }

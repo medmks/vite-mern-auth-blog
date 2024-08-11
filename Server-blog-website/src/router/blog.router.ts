@@ -4,7 +4,7 @@ import {
   getSearchTotalDocs,
   SearchBlogController,
   getTotalDocs,
-  SearchBlogByQueryController
+  SearchBlogByQueryController,
 } from '../controller/Blog.controller'
 
 import { Router } from 'express'
@@ -15,5 +15,5 @@ export default (router: Router) => {
   router.post('/api/search-blog', SearchBlogController)
   router.post('/api/all_latest', getTotalDocs)
   router.post('/api/search-count-docs', getSearchTotalDocs)
-  router.post("/api/search", SearchBlogByQueryController)
+  router.post('/api/search', SearchBlogByQueryController)
 }

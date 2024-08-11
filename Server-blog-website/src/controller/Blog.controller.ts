@@ -7,7 +7,7 @@ import {
   SearchBlogService,
   getDocsCount,
   getSearchCount,
-  SearchQueryService
+  SearchQueryService,
 } from '../services/blog.service'
 
 import { Request, Response } from 'express'

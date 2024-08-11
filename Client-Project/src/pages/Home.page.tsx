@@ -84,8 +84,6 @@ const HomePage = () => {
       })
 
       .then(async ({ data }) => {
-
-
         const formData = await FilterPagination({
           countRoute: "/search-count-docs",
           data: data,

@@ -1,4 +1,4 @@
-import { CreateUser,getAuthors } from '../services/user.service'
+import { CreateUser, getAuthors } from '../services/user.service'
 import { CreateZod_UserInput } from './../Schema/user.schema'
 import { Request, Response } from 'express'
 // import { Omit } from 'lodash';
@@ -12,13 +12,13 @@ export async function CreateUserHandler(req: Request<{}, {}, CreateZod_UserInput
     return res.status(409).send(error.message)
   }
 }
-export async function getAuthorsBysearch(req:Request, res: Response) {
+export async function getAuthorsBysearch(req: Request, res: Response) {
   try {
     const { query } = req.body
     const user = await getAuthors(query)
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
+    console.log('====================================')
+    console.log(user)
+    console.log('====================================')
     return res.status(200).send(user)
   } catch (error) {
     return res.status(409).send(error.message)

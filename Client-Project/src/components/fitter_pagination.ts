@@ -8,7 +8,7 @@ type Tfilter = {
   data: blog[];
   page: number;
   countRoute: string;
-  date_to_send: Record<string, string> | undefined; 
+  date_to_send: Record<string, string> | undefined;
 };
 const FilterPagination = async ({
   new_Array = false,
