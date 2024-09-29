@@ -1,5 +1,5 @@
 import type { blog } from "../pages/Home.page";
-import { Getthedate } from "../common/date";
+import { GetTheDate } from "../common/date";
 import { Link } from "react-router-dom";
 const BlogCard: React.FC<{ blog: blog }> = (props: {
   blog: blog;
@@ -14,14 +14,14 @@ const BlogCard: React.FC<{ blog: blog }> = (props: {
       <div className=" w-full">
         <div className="flex gap-2 items-center mb-7 ">
           <img
-            src="https://i.pinimg.com/474x/22/8a/70/228a70c4f16df072a6fd837f974b2ede.jpg"
+            src={blog.author.profile}
             className="w-6 h-6 rounded-full object-cover"
             alt=""
           />
           <p className="line-clamp-1 ">
             {blog.author.name} @{blog.author.name}
           </p>
-          <p className="min-w-fit">{Getthedate(blog.createdAt)}</p>
+          <p className="min-w-fit">{GetTheDate(blog.createdAt)}</p>
         </div>
         <h1 className="blog-title">{blog.title}</h1>
         <p className="my-3 text-2xl font-gelasio leading-7 max-sm:hidden md:max-[1101px]:hidden line-clamp-2 ">

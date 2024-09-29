@@ -22,7 +22,7 @@ export const days = [
   "الأحد",
 ];
 
-export const Getthedate = (timestamp: string) => {
+export const GetTheDate = (timestamp: string) => {
   const date = new Date(timestamp);
   return `${date.getDate()} ${Mouths[date.getMonth()]}`;
 };
