@@ -19,7 +19,10 @@
   body {
     @apply font-inter font-normal text-black;
   }
-
+  * {
+    scrollbar-width: thin; /* Makes the scrollbar thin */
+    scrollbar-color: #f1f1f1; /* Thumb and track colors */
+  }
   i {
     @apply mt-0.5;
   }
