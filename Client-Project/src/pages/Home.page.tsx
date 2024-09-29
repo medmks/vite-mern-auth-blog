@@ -37,6 +37,7 @@ export type blog = {
   author: {
     _id: string;
     name: string;
+    profile: string;
   };
   blog_id: string;
 };
