@@ -17,7 +17,7 @@ export async function GetLatestblogs(page: number) {
   try {
     const maxLimit = 5
     const blogs = await Blogmodel.find({ draft: false })
-      .populate('author', 'name')
+      .populate('author', 'name profile')
       .sort({ createdAt: -1 })
       .select('blog_id tags createdAt description title activity banner -_id ')
       .skip((page - 1) * maxLimit)
@@ -29,13 +29,15 @@ export async function GetLatestblogs(page: number) {
   }
 }
 
-export async function Tendy_blogs() {
+export async function TrendyBlogs() {
   try {
     const Trends = await Blogmodel.find({ draft: false })
-      .populate('author', 'name')
+      .populate('author' ,'name profile')
       .sort({ 'activity.total_reads': -1, 'activity.total_likes': -1, createdAt: -1 })
       .select('blog_id createdAt title -_id ')
       .limit(5)
+
+      console.log("Trends",Trends)
 
     return Trends
   } catch (error) {

@@ -3,7 +3,7 @@ import { createbloginput } from '../Schema/Blog.schema'
 import {
   GetLatestblogs,
   createNewBlog,
-  Tendy_blogs,
+  TrendyBlogs,
   SearchBlogService,
   getDocsCount,
   getSearchCount,
@@ -35,7 +35,7 @@ export async function GetltestBloghandler(req: Request, res: Response) {
 
 export async function GetTrendyBlogs(req: Request, res: Response) {
   try {
-    const blogs = await Tendy_blogs()
+    const blogs = await TrendyBlogs()
 
     return res.status(200).send(blogs)
   } catch (error) {
